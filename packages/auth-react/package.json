@@ -1,0 +1,59 @@
+{
+  "name": "@loopauth/auth-react",
+  "description": "The LoopAuth React SDK written in TypeScript",
+  "version": "0.1.0",
+  "keywords": [],
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    "types": "./dist/index.d.ts",
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.js",
+    "default": "./dist/index.js"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "author": "ty",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "nb-tsc && rollup -c",
+    "clean": "del 'loopx-auth-react*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
+    "pretest": "yarn run clean && yarn run build",
+    "test": "yarn run pretest && yarn run jest",
+    "jest": "jest"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0",
+    "react-dom": ">=18.2.0"
+  },
+  "dependencies": {
+    "@loopauth/auth-browser": "workspace:^"
+  },
+  "devDependencies": {
+    "@nutol/build": "^0.2.14",
+    "@nutol/eslint-config": "^0.2.9",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@types/jest": "^29.5.3",
+    "@types/node": "^20.5.0",
+    "@types/react": "^18.2.20",
+    "@types/react-dom": "^18.2.7",
+    "del-cli": "^5.0.0",
+    "jest": "^29.6.2",
+    "jest-environment-jsdom": "^29.6.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "rollup": "^3.28.0"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ]
+}
