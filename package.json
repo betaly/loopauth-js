@@ -40,6 +40,7 @@
     "@nutol/eslint-config": "^0.2.9",
     "@nutol/monorepo": "^0.2.11",
     "@nutol/ts-config": "^0.2.1",
+    "@release-it/conventional-changelog": "^7.0.0",
     "@rollup/plugin-commonjs": "^25.0.4",
     "@rollup/plugin-node-resolve": "^15.1.0",
     "@rollup/plugin-replace": "^5.0.2",
