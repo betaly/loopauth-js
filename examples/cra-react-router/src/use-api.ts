@@ -10,6 +10,7 @@ export const useApi = (url: string, options: any = {}): {error?: Error | null; l
   });
 
   useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     (async () => {
       let error;
       try {
