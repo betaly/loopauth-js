@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/betaly/loopauth-js/compare/@loopauth/auth-js@0.2.0...@loopauth/auth-js@0.3.0) (2023-08-20)
+
+
+### Features
+
+* wip ([ab31754](https://github.com/betaly/loopauth-js/commit/ab31754ee965c6a2f7bab7299cc84bfcda3175fe))
+
+
+
+
+
 # 0.2.0 (2023-08-17)
 
 
