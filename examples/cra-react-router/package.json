@@ -2,6 +2,7 @@
   "name": "@loopauth/cra-react-router",
   "description": "",
   "version": "0.1.0",
+  "private": true,
   "keywords": [],
   "engines": {
     "node": ">=16"

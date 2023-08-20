@@ -2,6 +2,7 @@
   "name": "@loopauth/auth-api",
   "description": "A loopauth example api server",
   "version": "0.1.0",
+  "private": true,
   "keywords": [],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
