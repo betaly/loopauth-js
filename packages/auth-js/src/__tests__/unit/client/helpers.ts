@@ -1,7 +1,7 @@
 import {expect} from '@jest/globals';
 
-import {BaseAuthClientOptions, GetTokenSilentlyOptions, RedirectLoginOptions, SwitchTokenOptions} from '../../..';
-import {BaseAuthClient} from '../../../client';
+import {AuthClientOptions, GetTokenSilentlyOptions, RedirectLoginOptions, SwitchTokenOptions} from '../../..';
+import {AuthClient} from '../../../client';
 import {verify} from '../../../tokens';
 import {
   TEST_ACCESS_TOKEN,
@@ -12,7 +12,7 @@ import {
   TEST_REFRESH_TOKEN,
   TEST_TENANT_ID,
 } from '../../constants';
-import {BrowserAuthClient} from '../../fixtures/browser-client';
+import {WebAuthClient} from '../../fixtures/web-auth-client';
 
 export const assertPostFn = (mockFetch: jest.Mock) => {
   return (url: string, body: any, headers: Record<string, string> | null = null, callNum = 0, json = true) => {
@@ -86,23 +86,23 @@ export const fetchResponse = <T>(ok: boolean, json: T) =>
   });
 
 export const setupFn = (mockVerify: jest.Mock) => {
-  return (config?: Partial<BaseAuthClientOptions>) => {
-    const options = {
+  return (config?: Partial<AuthClientOptions>) => {
+    const options: AuthClientOptions = {
       domain: TEST_DOMAIN,
-      loginPath: '/auth/login',
+      authProvider: 'autha',
       clientId: TEST_CLIENT_ID,
       authorizationParams: {
         redirect_uri: TEST_REDIRECT_URI,
       },
     };
 
-    Object.assign(options.authorizationParams, config?.authorizationParams);
+    Object.assign(options.authorizationParams!, config?.authorizationParams);
 
     delete config?.authorizationParams;
 
     Object.assign(options, config);
 
-    const client = new BrowserAuthClient(options);
+    const client = new WebAuthClient(options);
 
     mockVerify.mockReturnValue({
       user: {
@@ -141,7 +141,7 @@ const processDefaultLoginWithRedirectOptions = (config: any) => {
 
 export const loginWithRedirectFn = (mockWindow: any, mockFetch: any) => {
   return async (
-    client: BaseAuthClient,
+    client: AuthClient,
     options: RedirectLoginOptions | undefined = undefined,
     testConfig: {
       token?: {
@@ -240,7 +240,7 @@ const processDefaultTokenOptions = (config: any) => {
 
 export const getTokenSilentlyFn = (mockWindow: any, mockFetch: any) => {
   return async (
-    client: BaseAuthClient,
+    client: AuthClient,
     options: GetTokenSilentlyOptions | undefined = undefined,
     testConfig: {
       token?: {
@@ -274,7 +274,7 @@ export const getTokenSilentlyFn = (mockWindow: any, mockFetch: any) => {
 
 export const switchTokenFn = (mockWindow: any, mockFetch: any) => {
   return async (
-    client: BaseAuthClient,
+    client: AuthClient,
     options: SwitchTokenOptions | undefined = undefined,
     testConfig: {
       token?: {

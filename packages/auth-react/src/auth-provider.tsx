@@ -1,12 +1,12 @@
 import {
-  AuthClient,
-  type AuthClientOptions,
   GetTokenSilentlyOptions,
   InteractionMode,
   LogoutOptions,
   RedirectLoginResult,
   SwitchTokenOptions,
   User,
+  WebAuthClient,
+  type WebAuthClientOptions,
 } from '@loopauth/auth-browser';
 import React, {type ReactNode, useCallback, useEffect, useMemo, useReducer, useRef, useState} from 'react';
 
@@ -23,7 +23,7 @@ export type AppState = {
   [key: string]: any; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
-export interface LoopAuthProviderOptions extends AuthClientOptions {
+export interface LoopAuthProviderOptions extends WebAuthClientOptions {
   /**
    * The child nodes your Provider has wrapped
    */
@@ -79,7 +79,7 @@ declare const __VERSION__: string;
 /**
  * @ignore
  */
-const toAuthClientOptions = (opts: LoopAuthProviderOptions): AuthClientOptions => {
+const toAuthClientOptions = (opts: LoopAuthProviderOptions): WebAuthClientOptions => {
   return {
     ...opts,
     authClient: {
@@ -104,7 +104,7 @@ export const LoopAuthProvider = (options: LoopAuthProviderOptions) => {
     context = LoopAuthContext,
     ...clientOpts
   } = options;
-  const [client] = useState(() => new AuthClient(toAuthClientOptions(clientOpts)));
+  const [client] = useState(() => new WebAuthClient(toAuthClientOptions(clientOpts)));
   const [state, dispatch] = useReducer(reducer, InitialAuthState);
   const didInitialise = useRef(false);
 

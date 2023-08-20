@@ -25,6 +25,8 @@ coverage
 *.tsbuildinfo
 test-results
 junit.xml
+build
+.env
 
 # ignore dist conetents but dist directory for `flat` modules
 packages/*/dist/*

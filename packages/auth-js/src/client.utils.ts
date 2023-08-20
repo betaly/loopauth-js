@@ -1,4 +1,4 @@
-import {AuthorizationParams, AuthorizeOptions, BaseAuthClientOptions} from './types';
+import {AuthorizationParams, AuthorizeOptions, AuthClientOptions} from './types';
 
 /**
  * @ignore
@@ -6,7 +6,7 @@ import {AuthorizationParams, AuthorizeOptions, BaseAuthClientOptions} from './ty
 export const GET_TOKEN_SILENTLY_LOCK_KEY = 'loopauth.lock.getTokenSilently';
 
 export const getAuthorizeParams = (
-  clientOptions: BaseAuthClientOptions & {
+  clientOptions: AuthClientOptions & {
     authorizationParams: AuthorizationParams;
   },
   authorizationParams: AuthorizationParams,

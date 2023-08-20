@@ -17,7 +17,7 @@ import {
   isRefreshTokenEndpointOptions,
   isSwitchTokenEndpointOptions,
 } from './type-guards';
-import pick from 'tily/object/pick';
+import pick from 'object.pick';
 
 export async function fetchToken(
   {baseUrl, useFormData, timeout, authClient, ...options}: TokenEndpointOptions,
@@ -32,19 +32,17 @@ export async function fetchToken(
   }
 
   let url;
-  let filterOptions;
+  let data;
   if (isCodeExchangeEndpointOptions(options)) {
     url = `${baseUrl}/auth/token`;
-    filterOptions = pick(CodeRequestTokenOptionsKeys);
+    data = pick(options, CodeRequestTokenOptionsKeys);
   } else if (isRefreshTokenEndpointOptions(options)) {
     url = `${baseUrl}/auth/token-refresh`;
-    filterOptions = pick(RefreshTokenRequestTokenOptionsKeys);
+    data = pick(options, RefreshTokenRequestTokenOptionsKeys);
   } else {
     url = `${baseUrl}/auth/token-switch`;
-    filterOptions = pick(SwitchTokenRequestTokenOptionsKeys);
+    data = pick(options, SwitchTokenRequestTokenOptionsKeys);
   }
-
-  const data = filterOptions(options);
 
   const body = useFormData ? createFormParams(data) : JSON.stringify(data);
   const contentType = useFormData ? 'application/x-www-form-urlencoded' : 'application/json';

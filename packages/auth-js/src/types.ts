@@ -12,6 +12,8 @@ export type FetchOptions = {
 
 export type Fetcher = <T extends ReturnType<typeof fetch>>(url: string, options?: FetchOptions) => Promise<T>;
 
+export type AuthProvider = 'autha';
+
 export interface AuthorizationParams {
   interaction_mode?: InteractionMode;
   /**
@@ -44,24 +46,35 @@ interface OptionsWithAuthorizationParams {
   authorizationParams?: AuthorizationParams;
 }
 
-export interface BaseAuthClientOptions extends OptionsWithAuthorizationParams {
+export interface AuthClientOptions extends OptionsWithAuthorizationParams {
   /**
    * The auth service domain or base URL.
    */
   domain: string;
 
   /**
-   /**
    * The Client ID
    */
   clientId: string;
+
   /**
    * The Client Secret
    */
   clientSecret?: string;
 
-  loginPath: string;
+  /**
+   * The auth provider to use. Can be `autha`.
+   */
+  authProvider?: AuthProvider;
 
+  /**
+   * The login path, default `/auth/{provider}`
+   */
+  loginPath?: string;
+
+  /**
+   * The logout path, default `/logout}`
+   */
   logoutPath?: string;
 
   /**
@@ -192,6 +205,29 @@ export interface LogoutUrlOptions {
    * [Read more about how redirecting after logout works](https://auth0.com/docs/logout/guides/redirect-users-after-logout)
    */
   clientId?: string | null;
+
+  /**
+   * Parameters to pass to the logout endpoint. This can be known parameters defined by Auth0 or custom parameters
+   * you wish to provide.
+   */
+  logoutParams?: {
+    /**
+     * The URL where Auth0 will redirect your browser to after the logout.
+     *
+     * **Note**: If the `client_id` parameter is included, the
+     * `returnTo` URL that is provided must be listed in the
+     * Application's "Allowed Logout URLs" in the Auth0 dashboard.
+     * However, if the `client_id` parameter is not included, the
+     * `returnTo` URL must be listed in the "Allowed Logout URLs" at
+     * the account level in the LoopAuth dashboard.
+     */
+    returnTo?: string;
+
+    /**
+     * If you need to send custom parameters to the logout endpoint, make sure to use the original parameter name.
+     */
+    [key: string]: any;
+  };
 }
 
 export interface LogoutOptions extends LogoutUrlOptions {
@@ -287,7 +323,7 @@ export interface JWTVerifyOptions {
 }
 
 export interface User {
-  id: string;
+  id?: string;
   username?: string;
   email?: string;
   phone?: string;

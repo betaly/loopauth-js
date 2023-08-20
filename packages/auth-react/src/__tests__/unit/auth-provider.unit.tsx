@@ -1,4 +1,4 @@
-import {AuthClient, GetTokenSilentlyVerboseResponse, TokenEndpointResponse} from '@loopauth/auth-browser';
+import {GetTokenSilentlyVerboseResponse, TokenEndpointResponse, WebAuthClient} from '@loopauth/auth-browser';
 import '@testing-library/jest-dom';
 import {act, render, renderHook, screen, waitFor} from '@testing-library/react';
 import React, {StrictMode, useContext} from 'react';
@@ -10,7 +10,7 @@ import {createWrapper} from '../helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require('../../../package.json');
-const clientMock = jest.mocked(new AuthClient({clientId: '', domain: '', loginPath: ''}));
+const clientMock = jest.mocked(new WebAuthClient({clientId: '', domain: '', loginPath: ''}));
 
 const TEST_TOKEN_RESPONSE: TokenEndpointResponse = {
   accessToken: '__test_access_token__',
@@ -50,7 +50,7 @@ describe('LoopAuthProvider', () => {
       });
     });
 
-    expect(AuthClient).toHaveBeenCalledWith(
+    expect(WebAuthClient).toHaveBeenCalledWith(
       expect.objectContaining({
         clientId: 'foo',
         domain: 'bar',
@@ -74,7 +74,7 @@ describe('LoopAuthProvider', () => {
         wrapper,
       });
     });
-    expect(AuthClient).toHaveBeenCalledWith(
+    expect(WebAuthClient).toHaveBeenCalledWith(
       expect.objectContaining({
         authClient: {
           name: 'auth-react',

@@ -1,9 +1,9 @@
 import Lock from 'browser-tabs-lock';
 
-import {BaseAuthClient} from '../../client';
+import {AuthClient} from '../../client';
 import {TimeoutError} from '../../errors';
 import {retryPromise} from '../../promise-utils';
-import {BaseAuthClientOptions} from '../../types';
+import {AuthClientOptions} from '../../types';
 import {GET_TOKEN_SILENTLY_LOCK_KEY} from '../constants';
 
 /**
@@ -11,8 +11,8 @@ import {GET_TOKEN_SILENTLY_LOCK_KEY} from '../constants';
  */
 const lock = new Lock();
 
-export class BrowserAuthClient extends BaseAuthClient {
-  constructor(options: BaseAuthClientOptions) {
+export class WebAuthClient extends AuthClient {
+  constructor(options: AuthClientOptions) {
     super({
       openUrl: async (url: string) => window.location.assign(url),
       ...options,

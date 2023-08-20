@@ -28,7 +28,7 @@ import {TransactionManager} from './transaction-manager';
 import {
   AuthorizationParams,
   AuthorizeOptions,
-  BaseAuthClientOptions,
+  AuthClientOptions,
   CodeRequestTokenOptions,
   Fetcher,
   GetTokenSilentlyOptions,
@@ -40,6 +40,7 @@ import {
   SwitchTokenRequestTokenOptions,
   TokenEndpointResponse,
   User,
+  AuthProvider,
 } from './types';
 import {
   createQueryParams,
@@ -50,8 +51,9 @@ import {
   stringToBase64UrlEncoded,
 } from './utils';
 
-export abstract class BaseAuthClient<Options extends BaseAuthClientOptions = BaseAuthClientOptions> {
+export abstract class AuthClient<Options extends AuthClientOptions = AuthClientOptions> {
   readonly domainUrl: string;
+  readonly authProvider: AuthProvider;
   readonly loginPath: string;
   readonly logoutPath: string;
 
@@ -84,12 +86,9 @@ export abstract class BaseAuthClient<Options extends BaseAuthClientOptions = Bas
       throw new Error('clientId option is required');
     }
 
-    if (!this.options.loginPath) {
-      throw new Error('loginPath is required');
-    }
-
     this.domainUrl = getDomain(this.options.domain);
-    this.loginPath = this.options.loginPath;
+    this.authProvider = this.options.authProvider ?? 'autha';
+    this.loginPath = this.options.loginPath ?? `/auth/${this.authProvider}`;
     this.logoutPath = this.options.logoutPath ?? '/logout';
     this.tokenIssuer = getTokenIssuer(this.options.issuer, this.domainUrl);
 

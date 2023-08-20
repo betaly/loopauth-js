@@ -1,11 +1,11 @@
-import {AuthClient} from '../../client';
+import {WebAuthClient} from '../../client';
 
 describe('AuthClient', function () {
   it('should construct', function () {
-    const client = new AuthClient({
+    const client = new WebAuthClient({
       domain: 'test.dev',
+      authProvider: 'autha',
       clientId: 'test_client_id',
-      loginPath: '/login',
     });
     expect(client).toBeDefined();
   });

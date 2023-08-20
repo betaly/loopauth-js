@@ -1,14 +1,14 @@
-import {BaseAuthClient, InMemoryCache, TimeoutError, retryPromise} from '@loopauth/auth-js';
+import {AuthClient, InMemoryCache, TimeoutError, retryPromise} from '@loopauth/auth-js';
 
 import {LocalStorageCache} from './cache.localstorage';
 import {CACHE_PROVIDER_MEMORY, GET_TOKEN_SILENTLY_LOCK_KEY, TRANSACTION_STORAGE_SESSION} from './constants';
 import acquireLock from './lock';
 import {CookieStorage} from './storage.cookie';
 import {SessionStorage} from './storage.session';
-import {AuthClientOptions} from './types';
+import {WebAuthClientOptions} from './types';
 
-export class AuthClient extends BaseAuthClient<AuthClientOptions> {
-  constructor(options: AuthClientOptions) {
+export class WebAuthClient extends AuthClient<WebAuthClientOptions> {
+  constructor(options: WebAuthClientOptions) {
     super({
       openUrl: async (url: string) => window.location.assign(url),
       ...options,
