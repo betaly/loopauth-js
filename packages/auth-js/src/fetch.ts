@@ -61,13 +61,17 @@ export async function fetchJson<T>(url: string, fetchOptions: FetchOptions, fetc
   const {json, ok} = response;
 
   if (!ok) {
-    const {
-      error: {message, errorCode},
-    }: {error: RemoteError} = json;
+    let error: RemoteError;
+    if (typeof json.error === 'string') {
+      error = {errorCode: json.error, message: json.error_description};
+    } else {
+      error = json.error;
+    }
+    const {message, errorCode} = error ?? {};
     const errorMessage = message || `HTTP error. Unable to fetch ${url}`;
 
     if (errorCode === 'mfa_required') {
-      throw new MfaRequiredError(errorCode, errorMessage, '');
+      throw new MfaRequiredError(errorCode, errorMessage, json.mfa_token);
     }
 
     if (errorCode === 'missing_refresh_token') {

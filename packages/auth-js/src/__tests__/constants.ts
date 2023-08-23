@@ -11,6 +11,7 @@ export const TEST_AUTH_CLIENT_QUERY_STRING = `&authClient=${encodeURIComponent(
 )}`;
 
 export const TEST_TENANT_ID = 'tenant_1';
+export const TEST_AUTH_PROVIDER = 'autha';
 export const TEST_DOMAIN = 'auth_domain';
 export const TEST_CLIENT_ID = 'auth_client_id';
 export const TEST_REDIRECT_URI = 'my_callback_url';

@@ -5,6 +5,7 @@ import {AuthClient} from '../../../client';
 import {verify} from '../../../tokens';
 import {
   TEST_ACCESS_TOKEN,
+  TEST_AUTH_PROVIDER,
   TEST_CLIENT_ID,
   TEST_CODE,
   TEST_DOMAIN,
@@ -89,7 +90,7 @@ export const setupFn = (mockVerify: jest.Mock) => {
   return (config?: Partial<AuthClientOptions>) => {
     const options: AuthClientOptions = {
       domain: TEST_DOMAIN,
-      authProvider: 'autha',
+      authProvider: TEST_AUTH_PROVIDER,
       clientId: TEST_CLIENT_ID,
       authorizationParams: {
         redirect_uri: TEST_REDIRECT_URI,

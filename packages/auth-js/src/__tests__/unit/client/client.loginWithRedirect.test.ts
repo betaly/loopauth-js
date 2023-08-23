@@ -3,6 +3,7 @@ import * as utils from '../../../utils';
 import version from '../../../version';
 import {
   TEST_ACCESS_TOKEN,
+  TEST_AUTH_PROVIDER,
   TEST_CLIENT_CHALLENGE,
   TEST_CLIENT_ID,
   TEST_CODE,
@@ -34,7 +35,7 @@ describe('AuthClient', () => {
 
       const url = new URL(mockWindow.location.assign.mock.calls[0][0]);
 
-      assertUrlEquals(url, TEST_DOMAIN, '/auth/login', {
+      assertUrlEquals(url, TEST_DOMAIN, `/auth/${TEST_AUTH_PROVIDER}`, {
         client_id: TEST_CLIENT_ID,
         redirect_uri: TEST_REDIRECT_URI,
         client_challenge: TEST_CLIENT_CHALLENGE,
@@ -69,7 +70,7 @@ describe('AuthClient', () => {
 
       const url = new URL(mockWindow.location.assign.mock.calls[0][0]);
 
-      assertUrlEquals(url, TEST_DOMAIN, '/auth/login', {
+      assertUrlEquals(url, TEST_DOMAIN, `/auth/${TEST_AUTH_PROVIDER}`, {
         client_id: TEST_CLIENT_ID,
         redirect_uri: TEST_REDIRECT_URI,
         client_challenge: TEST_CLIENT_CHALLENGE,
@@ -113,7 +114,7 @@ describe('AuthClient', () => {
       assertUrlEquals(
         url,
         TEST_DOMAIN,
-        '/auth/login',
+        `/auth/${TEST_AUTH_PROVIDER}`,
         {
           redirect_uri,
         },
@@ -141,7 +142,7 @@ describe('AuthClient', () => {
       assertUrlEquals(
         url,
         TEST_DOMAIN,
-        '/auth/login',
+        `/auth/${TEST_AUTH_PROVIDER}`,
         {
           redirect_uri: 'https://my-redirect-uri/callback',
         },
@@ -164,7 +165,7 @@ describe('AuthClient', () => {
       assertUrlEquals(
         url,
         TEST_DOMAIN,
-        '/auth/login',
+        `/auth/${TEST_AUTH_PROVIDER}`,
         {
           audience: 'test_audience',
         },
@@ -199,7 +200,7 @@ describe('AuthClient', () => {
       assertUrlEquals(
         url,
         TEST_DOMAIN,
-        '/auth/login',
+        `/auth/${TEST_AUTH_PROVIDER}`,
         {
           audience: 'test_audience',
         },
@@ -214,7 +215,7 @@ describe('AuthClient', () => {
 
       const url = new URL(mockWindow.location.assign.mock.calls[0][0]);
 
-      assertUrlEquals(url, TEST_DOMAIN, '/auth/login', {}, false);
+      assertUrlEquals(url, TEST_DOMAIN, `/auth/${TEST_AUTH_PROVIDER}`, {}, false);
     });
 
     it('should log the user in and get the user', async () => {
@@ -314,7 +315,7 @@ describe('AuthClient', () => {
 
       const url = new URL(mockWindow.location.assign.mock.calls[0][0]);
 
-      assertUrlEquals(url, TEST_DOMAIN, '/auth/login', {
+      assertUrlEquals(url, TEST_DOMAIN, `/auth/${TEST_AUTH_PROVIDER}`, {
         client_id: TEST_CLIENT_ID,
         redirect_uri: TEST_REDIRECT_URI,
         client_challenge: TEST_CLIENT_CHALLENGE,

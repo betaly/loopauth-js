@@ -1,8 +1,8 @@
 export interface RemoteError {
-  statusCode: number;
   errorCode: string;
   message: string;
-  name: string;
+  name?: string;
+  statusCode?: number;
 }
 
 export const RemoteErrorCodes = {
