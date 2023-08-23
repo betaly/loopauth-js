@@ -1,5 +1,5 @@
 import {DEFAULT_FETCH_TIMEOUT_MS, DEFAULT_SILENT_TOKEN_RETRY_COUNT} from './constants';
-import {GenericError, MfaRequiredError, MissingRefreshTokenError} from './errors';
+import {GenericError, MfaRequiredError, MissingRefreshTokenError, RemoteError} from './errors';
 import {FetchOptions, Fetcher} from './types';
 
 export const createAbortController = () => new AbortController();
@@ -58,26 +58,26 @@ export async function fetchJson<T>(url: string, fetchOptions: FetchOptions, fetc
     throw fetchError;
   }
 
-  const {
-    json: {error, error_description, ...data},
-    ok,
-  } = response;
+  const {json, ok} = response;
 
   if (!ok) {
-    const errorMessage = error_description || `HTTP error. Unable to fetch ${url}`;
+    const {
+      error: {message, errorCode},
+    }: {error: RemoteError} = json;
+    const errorMessage = message || `HTTP error. Unable to fetch ${url}`;
 
-    if (error === 'mfa_required') {
-      throw new MfaRequiredError(error, errorMessage, data.mfa_token);
+    if (errorCode === 'mfa_required') {
+      throw new MfaRequiredError(errorCode, errorMessage, '');
     }
 
-    if (error === 'missing_refresh_token') {
-      throw new MissingRefreshTokenError('', '');
+    if (errorCode === 'missing_refresh_token') {
+      throw new MissingRefreshTokenError();
     }
 
-    throw new GenericError(error || 'request_error', errorMessage);
+    throw new GenericError(errorCode || 'request_error', errorMessage);
   }
 
-  return data;
+  return json;
 }
 
 const doFetch = async (fetchUrl: string, fetchOptions: FetchOptions, fetcher?: Fetcher) => {

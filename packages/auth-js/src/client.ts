@@ -20,7 +20,7 @@ import {
   TOKEN_EXPIRED_ERROR_MESSAGE,
   TOKEN_INVALID_ERROR_MESSAGE,
 } from './constants';
-import {AuthenticationError, GenericError, MissingRefreshTokenError} from './errors';
+import {AuthenticationError, GenericError, MissingRefreshTokenError, RemoteErrorCodes} from './errors';
 import {singlePromise} from './promise-utils';
 import {InMemoryStorage} from './storage';
 import {verify as verifyIdToken} from './tokens';
@@ -155,39 +155,48 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     const clientId = options.clientId || this.options.clientId;
     const entry = await this.cacheManager.get(new CacheKey({clientId}));
 
+    let postLogoutUrl;
+    if (entry?.accessToken) {
+      try {
+        // logout from loopauth
+        const res = await postLogout(
+          {
+            url: this._logoutUrl({clientId}),
+            accessToken: entry.accessToken,
+            refreshToken: entry.refreshToken,
+          },
+          this.fetcher,
+        );
+
+        postLogoutUrl = res.logoutUrl;
+      } catch (e) {
+        if (
+          e instanceof GenericError &&
+          [RemoteErrorCodes.TokenMissing, RemoteErrorCodes.TokenExpired].includes(e.error)
+        ) {
+          // noop
+        } else {
+          throw e;
+        }
+      }
+    }
+
+    // remove all credentials from cache
     if (options.clientId === null) {
       await this.cacheManager.clear();
     } else {
       await this.cacheManager.clear(clientId);
     }
-
-    // this.cookieStorage.remove(this.orgHintCookieName, {
-    //   cookieDomain: this.options.cookieDomain,
-    // });
-    // this.cookieStorage.remove(this.isAuthenticatedCookieName, {
-    //   cookieDomain: this.options.cookieDomain,
-    // });
-
     this.userCache.remove(CACHE_KEY_ID_TOKEN_SUFFIX);
 
-    if (entry?.accessToken) {
-      const res = await postLogout(
-        {
-          url: this._logoutUrl({clientId}),
-          accessToken: entry.accessToken,
-          refreshToken: entry.refreshToken,
-        },
-        this.fetcher,
-      );
-      const url = res.logoutUrl;
-      if (url) {
-        if (openUrl) {
-          return openUrl(url);
-        } else if (openUrl === false) {
-          return;
-        }
-        throw new Error('You need to specify an openUrl function to use logout');
+    if (postLogoutUrl) {
+      // post logout
+      if (openUrl) {
+        return openUrl(postLogoutUrl);
+      } else if (openUrl === false) {
+        return;
       }
+      throw new Error('You need to specify an openUrl function to use logout');
     }
   }
 
@@ -341,7 +350,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     // fallback to an iframe
     // -------------------------------------------------------
     if (!cache?.refreshToken) {
-      throw new MissingRefreshTokenError('', '');
+      throw new MissingRefreshTokenError();
     }
 
     const timeout = typeof options.timeoutInSeconds === 'number' ? options.timeoutInSeconds * 1000 : null;
@@ -498,7 +507,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
       //   return this._getTokenFromIFrame(options);
       // }
 
-      throw new MissingRefreshTokenError('', '');
+      throw new MissingRefreshTokenError();
     }
 
     // const redirect_uri =

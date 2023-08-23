@@ -1,3 +1,15 @@
+export interface RemoteError {
+  statusCode: number;
+  errorCode: string;
+  message: string;
+  name: string;
+}
+
+export const RemoteErrorCodes = {
+  TokenExpired: 'token_expired',
+  TokenMissing: 'token_missing',
+};
+
 /**
  * Thrown when network requests to the Auth server fail.
  */
@@ -70,13 +82,8 @@ export class MfaRequiredError extends GenericError {
  * Error thrown when there is no refresh token to use
  */
 export class MissingRefreshTokenError extends GenericError {
-  constructor(public audience: string = '', public scope: string = '') {
-    super(
-      'missing_refresh_token',
-      `Missing Refresh Token (audience: '${valueOrEmptyString(audience, ['default'])}', scope: '${valueOrEmptyString(
-        scope,
-      )}')`,
-    );
+  constructor() {
+    super('missing_refresh_token', `Missing Refresh Token`);
     Object.setPrototypeOf(this, MissingRefreshTokenError.prototype);
   }
 }
