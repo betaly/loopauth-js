@@ -1,6 +1,13 @@
+import pick from 'object.pick';
+
 import {urlSafeBase64} from './base64';
 import {DEFAULT_AUTH_CLIENT} from './constants';
 import {fetchJson} from './fetch';
+import {
+  isCodeExchangeEndpointOptions,
+  isRefreshTokenEndpointOptions,
+  isSwitchTokenEndpointOptions,
+} from './type-guards';
 import {
   CodeRequestTokenOptionsKeys,
   Fetcher,
@@ -12,12 +19,6 @@ import {
   TokenEndpointResponse,
 } from './types';
 import {createFormParams} from './utils';
-import {
-  isCodeExchangeEndpointOptions,
-  isRefreshTokenEndpointOptions,
-  isSwitchTokenEndpointOptions,
-} from './type-guards';
-import pick from 'object.pick';
 
 export async function fetchToken(
   {baseUrl, useFormData, timeout, authClient, ...options}: TokenEndpointOptions,

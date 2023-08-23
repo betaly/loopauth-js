@@ -1,6 +1,5 @@
-import React, {ComponentType} from 'react';
-
 import {ILoopAuthContext, LoopAuthContext} from './auth-context';
+import React, {ComponentType} from 'react';
 
 /**
  * Components wrapped in `withLoopAuth` will have an additional `loopauth` prop

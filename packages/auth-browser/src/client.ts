@@ -1,4 +1,4 @@
-import {AuthClient, InMemoryCache, TimeoutError, retryPromise} from '@loopauth/auth-js';
+import {AuthClient, InMemoryCache, retryPromise, TimeoutError} from '@loopauth/auth-js';
 
 import {LocalStorageCache} from './cache.localstorage';
 import {CACHE_PROVIDER_MEMORY, GET_TOKEN_SILENTLY_LOCK_KEY, TRANSACTION_STORAGE_SESSION} from './constants';

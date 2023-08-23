@@ -4,12 +4,12 @@ import {CACHE_KEY_PREFIX, CacheKey, CacheManager, InMemoryCache} from '../../../
 import {CacheKeyManifest} from '../../../cache/key-manifest';
 import {CacheEntry, DecodedToken, ICache} from '../../../cache/types';
 import {
+  dayInSeconds,
+  nowSeconds,
   TEST_ACCESS_TOKEN,
   TEST_CLIENT_ID,
   TEST_ID_TOKEN,
   TEST_REFRESH_TOKEN,
-  dayInSeconds,
-  nowSeconds,
 } from '../../constants';
 import {InMemoryAsyncCacheNoKeys} from './shared';
 

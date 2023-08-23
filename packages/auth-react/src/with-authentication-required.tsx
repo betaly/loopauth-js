@@ -1,7 +1,6 @@
-import React, {ComponentType, FC, useEffect} from 'react';
-
 import {ILoopAuthContext, LoopAuthContext, RedirectLoginOptions} from './auth-context';
 import {useLoopAuth} from './hooks';
+import React, {ComponentType, FC, useEffect} from 'react';
 
 /**
  * @ignore

@@ -1,6 +1,5 @@
-import React, {PropsWithChildren} from 'react';
-
 import {LoopAuthProvider, LoopAuthProviderOptions} from '../auth-provider';
+import React, {PropsWithChildren} from 'react';
 
 export const createWrapper = ({
   clientId = '__test_client_id__',

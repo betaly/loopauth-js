@@ -1,6 +1,5 @@
-import {User} from '@loopauth/auth-js';
-
 import {AuthState} from './state';
+import {User} from '@loopauth/auth-js';
 
 type Action =
   | {type: 'LOGIN_POPUP_STARTED'}

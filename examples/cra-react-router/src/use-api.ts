@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
 import {useLoopAuth} from '@loopauth/auth-react';
+import {useEffect, useState} from 'react';
 
 export const useApi = (url: string, options: any = {}): {error?: Error | null; loading: boolean; data?: any} => {
   const {getAccessTokenSilently} = useLoopAuth();

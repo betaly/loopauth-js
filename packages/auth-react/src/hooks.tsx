@@ -1,7 +1,6 @@
+import {ILoopAuthContext, LoopAuthContext} from './auth-context';
 import {User} from '@loopauth/auth-js';
 import {useContext} from 'react';
-
-import {ILoopAuthContext, LoopAuthContext} from './auth-context';
 
 /**
  * ```js

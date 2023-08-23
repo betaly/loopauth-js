@@ -5,25 +5,6 @@
   "trailingComma": "all",
   "arrowParens": "avoid",
   "semi": true,
-  "importOrder": [
-    "<THIRD_PARTY_MODULES>",
-    "^[./]"
-  ],
-  "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true,
-  "importOrderParserPlugins": [
-    "typescript",
-    "decorators-legacy",
-    "jsx",
-    "classProperties",
-    "classPrivateProperties",
-    "classPrivateMethods",
-    "objectRestSpread",
-    "dynamicImport",
-    "optionalChaining",
-    "nullishCoalescingOperator",
-    "semi"
-  ],
   "overrides": [
     {
       "files": "**/*.md",

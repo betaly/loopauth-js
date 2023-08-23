@@ -1,3 +1,7 @@
+import {ILoopAuthContext, LoopAuthContext, RedirectLoginOptions} from './auth-context';
+import {reducer} from './reducer';
+import {InitialAuthState} from './state';
+import {getTokenError, hasAuthParams, loginError, switchTokenError} from './utils';
 import {
   GetTokenSilentlyOptions,
   InteractionMode,
@@ -9,11 +13,6 @@ import {
   type WebAuthClientOptions,
 } from '@loopauth/auth-browser';
 import React, {type ReactNode, useCallback, useEffect, useMemo, useReducer, useRef, useState} from 'react';
-
-import {ILoopAuthContext, LoopAuthContext, RedirectLoginOptions} from './auth-context';
-import {reducer} from './reducer';
-import {InitialAuthState} from './state';
-import {getTokenError, hasAuthParams, loginError, switchTokenError} from './utils';
 
 /**
  * The state of the application before the user was redirected to the login page.

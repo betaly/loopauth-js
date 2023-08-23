@@ -1,6 +1,6 @@
 import {DEFAULT_FETCH_TIMEOUT_MS, DEFAULT_SILENT_TOKEN_RETRY_COUNT} from './constants';
 import {GenericError, MfaRequiredError, MissingRefreshTokenError, RemoteError} from './errors';
-import {FetchOptions, Fetcher} from './types';
+import {Fetcher, FetchOptions} from './types';
 
 export const createAbortController = () => new AbortController();
 

@@ -26,9 +26,10 @@ import {InMemoryStorage} from './storage';
 import {verify as verifyIdToken} from './tokens';
 import {TransactionManager} from './transaction-manager';
 import {
+  AuthClientOptions,
   AuthorizationParams,
   AuthorizeOptions,
-  AuthClientOptions,
+  AuthProvider,
   CodeRequestTokenOptions,
   Fetcher,
   GetTokenSilentlyOptions,
@@ -40,7 +41,6 @@ import {
   SwitchTokenRequestTokenOptions,
   TokenEndpointResponse,
   User,
-  AuthProvider,
 } from './types';
 import {
   createQueryParams,

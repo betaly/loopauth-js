@@ -1,4 +1,4 @@
-import {AuthorizationParams, AuthorizeOptions, AuthClientOptions} from './types';
+import {AuthClientOptions, AuthorizationParams, AuthorizeOptions} from './types';
 
 /**
  * @ignore

@@ -1,5 +1,6 @@
 // @ts-ignore
 import {acquireLockSpy} from 'browser-tabs-lock';
+
 import {urlSafeBase64} from '../../../base64';
 import {DEFAULT_AUTH_CLIENT} from '../../../constants';
 import * as fetches from '../../../fetch';

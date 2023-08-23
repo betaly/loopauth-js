@@ -1,7 +1,8 @@
+import {ApplicationConfig, AuthExampleApplication} from '@loopx/auth-example';
 import * as dotenv from 'dotenv';
 import * as dotenvExt from 'dotenv-extended';
-import {ApplicationConfig, AuthExampleApplication} from '@loopx/auth-example';
 import logServerUrls from 'log-server-urls';
+
 import {AuthApiApplication} from './application';
 
 dotenv.config();

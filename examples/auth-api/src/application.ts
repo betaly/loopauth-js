@@ -1,8 +1,8 @@
+import {ExpressMiddlewareFactory} from '@loopback/express';
+import {RestTags} from '@loopback/rest';
 import {ApplicationConfig, AuthExampleApplication} from '@loopx/auth-example';
 import {ILogger, LOGGER} from '@loopx/core';
 import Sessions, {type SessionOptions} from 'client-sessions';
-import {ExpressMiddlewareFactory} from '@loopback/express';
-import {RestTags} from '@loopback/rest';
 
 export class AuthApiApplication extends AuthExampleApplication {
   constructor(config?: ApplicationConfig) {

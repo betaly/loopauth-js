@@ -1,5 +1,6 @@
-import {GetTokenSilentlyVerboseResponse, TokenEndpointResponse, WebAuthClient} from '@loopauth/auth-browser';
 import '@testing-library/jest-dom';
+
+import {GetTokenSilentlyVerboseResponse, TokenEndpointResponse, WebAuthClient} from '@loopauth/auth-browser';
 import {act, render, renderHook, screen, waitFor} from '@testing-library/react';
 import React, {StrictMode, useContext} from 'react';
 
@@ -10,6 +11,7 @@ import {createWrapper} from '../helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require('../../../package.json');
+
 const clientMock = jest.mocked(new WebAuthClient({clientId: '', domain: ''}));
 
 const TEST_TOKEN_RESPONSE: TokenEndpointResponse = {

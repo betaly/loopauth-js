@@ -1,3 +1,5 @@
+import {AppState} from './auth-provider';
+import {AuthState, InitialAuthState} from './state';
 import {
   GetTokenSilentlyOptions,
   GetTokenSilentlyVerboseResponse,
@@ -10,9 +12,6 @@ import {
   User,
 } from '@loopauth/auth-browser';
 import {createContext} from 'react';
-
-import {AppState} from './auth-provider';
-import {AuthState, InitialAuthState} from './state';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
 export interface LogoutOptions extends Omit<SPALogoutOptions, 'onRedirect'> {}

@@ -1,9 +1,8 @@
-import {act, renderHook, waitFor} from '@testing-library/react';
-import React from 'react';
-
 import {ILoopAuthContext, InitialContext} from '../../auth-context';
 import {useLoopAuth} from '../../hooks';
 import {createWrapper} from '../helpers';
+import {act, renderHook, waitFor} from '@testing-library/react';
+import React from 'react';
 
 describe('useLoopAuth', () => {
   it('should provide the auth context', async () => {

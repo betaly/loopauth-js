@@ -1,5 +1,6 @@
-import {User, WebAuthClient} from '@loopauth/auth-browser';
 import '@testing-library/jest-dom';
+
+import {User, WebAuthClient} from '@loopauth/auth-browser';
 import {act, render, screen, waitFor} from '@testing-library/react';
 import React from 'react';
 

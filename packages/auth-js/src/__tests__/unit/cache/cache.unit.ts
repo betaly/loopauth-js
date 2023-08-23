@@ -1,7 +1,7 @@
 import {expect} from '@jest/globals';
 
 import {CacheEntry, CacheKey, ICache, InMemoryCache} from '../../../cache';
-import {TEST_ACCESS_TOKEN, TEST_CLIENT_ID, TEST_ID_TOKEN, dayInSeconds, nowSeconds} from '../../constants';
+import {dayInSeconds, nowSeconds, TEST_ACCESS_TOKEN, TEST_CLIENT_ID, TEST_ID_TOKEN} from '../../constants';
 
 const cacheFactories = [
   {new: () => new InMemoryCache(), name: 'In-memory Cache'},

@@ -1,16 +1,16 @@
 import version from './version';
 
-export * from './types';
-export * from './constants';
+export * from './api';
+export * from './base64';
 export * from './cache';
 export * from './client';
+export * from './constants';
 export * from './errors';
 export * from './fetch';
-export * from './tokens';
-export * from './utils';
-export * from './base64';
-export * from './api';
 export * from './promise-utils';
 export * from './storage';
+export * from './tokens';
+export * from './types';
+export * from './utils';
 
 export {version};
