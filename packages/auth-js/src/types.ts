@@ -202,21 +202,20 @@ export interface LogoutUrlOptions {
    *
    * If this property is set to `null`, then no client ID value is sent to the logout endpoint.
    *
-   * [Read more about how redirecting after logout works](https://auth0.com/docs/logout/guides/redirect-users-after-logout)
    */
   clientId?: string | null;
 
   /**
-   * Parameters to pass to the logout endpoint. This can be known parameters defined by Auth0 or custom parameters
+   * Parameters to pass to the logout endpoint. This can be known parameters defined by LoopAuth or custom parameters
    * you wish to provide.
    */
   logoutParams?: {
     /**
-     * The URL where Auth0 will redirect your browser to after the logout.
+     * The URL where LoopAuth will redirect your browser to after the logout.
      *
      * **Note**: If the `client_id` parameter is included, the
      * `returnTo` URL that is provided must be listed in the
-     * Application's "Allowed Logout URLs" in the Auth0 dashboard.
+     * Application's "Allowed Logout URLs" in the LoopAuth dashboard.
      * However, if the `client_id` parameter is not included, the
      * `returnTo` URL must be listed in the "Allowed Logout URLs" at
      * the account level in the LoopAuth dashboard.
@@ -237,7 +236,7 @@ export interface LogoutOptions extends LogoutUrlOptions {
    * Set to `false` to disable the redirect, or provide a function to handle the actual redirect yourself.
    *
    * @example
-   * await auth0.logout({
+   * await client.logout({
    *   openUrl(url) {
    *     window.location.replace(url);
    *   }
@@ -246,7 +245,7 @@ export interface LogoutOptions extends LogoutUrlOptions {
    * @example
    * import { Browser } from '@capacitor/browser';
    *
-   * await auth0.logout({
+   * await client.logout({
    *   async openUrl(url) {
    *     await Browser.open({ url });
    *   }
