@@ -1,5 +1,12 @@
 
 
+## [0.3.1](https://github.com/betaly/loopauth-js/compare/0.3.0...0.3.1) (2023-08-23)
+
+
+### Bug Fixes
+
+* **auth-js:** logout clean local storage sequence and logout error handling ([05faf97](https://github.com/betaly/loopauth-js/commit/05faf977ed42576de5987fb913a10034c270c3ee))
+
 # [0.3.0](https://github.com/betaly/loopauth-js/compare/0.2.0...0.3.0) (2023-08-20)
 
 
