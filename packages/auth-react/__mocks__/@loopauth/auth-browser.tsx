@@ -12,7 +12,7 @@ const loginWithPopup = jest.fn();
 const loginWithRedirect = jest.fn();
 const logout = jest.fn();
 
-export const AuthClient = jest.fn(() => {
+export const WebAuthClient = jest.fn(() => {
   return {
     // buildAuthorizeUrl,
     // buildLogoutUrl,
