@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.1](https://github.com/betaly/loopauth-js/compare/@loopauth/auth-js@0.3.0...@loopauth/auth-js@0.3.1) (2023-08-23)
+
+
+### Bug Fixes
+
+* **auth-js:** logout clean local storage sequence and logout error handling ([05faf97](https://github.com/betaly/loopauth-js/commit/05faf977ed42576de5987fb913a10034c270c3ee))
+
+
+
+
+
 # [0.3.0](https://github.com/betaly/loopauth-js/compare/@loopauth/auth-js@0.2.0...@loopauth/auth-js@0.3.0) (2023-08-20)
 
 
