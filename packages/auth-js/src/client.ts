@@ -189,6 +189,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     }
     this.userCache.remove(CACHE_KEY_ID_TOKEN_SUFFIX);
 
+    postLogoutUrl = postLogoutUrl ?? options.logoutParams?.returnTo;
     if (postLogoutUrl) {
       // post logout
       if (openUrl) {
