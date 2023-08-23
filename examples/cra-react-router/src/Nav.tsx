@@ -9,6 +9,14 @@ export function Nav() {
   }>();
   const {pathname} = useLocation();
 
+  async function handleLogout() {
+    try {
+      await logout({logoutParams: {returnTo: window.location.origin}});
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
@@ -30,11 +38,7 @@ export function Nav() {
         {isAuthenticated ? (
           <div>
             <span id="hello">Hello, {user?.username}!</span>{' '}
-            <button
-              className="btn btn-outline-secondary"
-              id="logout"
-              onClick={() => logout({logoutParams: {returnTo: window.location.origin}})}
-            >
+            <button className="btn btn-outline-secondary" id="logout" onClick={() => handleLogout()}>
               logout
             </button>
           </div>
