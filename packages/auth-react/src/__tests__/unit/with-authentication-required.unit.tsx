@@ -8,7 +8,7 @@ import {LoopAuthProvider} from '../../auth-provider';
 import withAuthenticationRequired from '../../with-authentication-required';
 import {defer} from '../helpers';
 
-const mockClient = jest.mocked(new WebAuthClient({clientId: '', domain: '', loginPath: ''}));
+const mockClient = jest.mocked(new WebAuthClient({clientId: '', domain: ''}));
 
 describe('withAuthenticationRequired', () => {
   it('should block access to a private component when not authenticated', async () => {

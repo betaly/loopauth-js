@@ -10,7 +10,7 @@ import {createWrapper} from '../helpers';
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const pkg = require('../../../package.json');
-const clientMock = jest.mocked(new WebAuthClient({clientId: '', domain: '', loginPath: ''}));
+const clientMock = jest.mocked(new WebAuthClient({clientId: '', domain: ''}));
 
 const TEST_TOKEN_RESPONSE: TokenEndpointResponse = {
   accessToken: '__test_access_token__',
