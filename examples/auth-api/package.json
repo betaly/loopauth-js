@@ -26,9 +26,9 @@
     "@loopback/core": "^5.1.2",
     "@loopback/express": "^6.1.2",
     "@loopback/rest": "^13.1.2",
-    "@loopx/auth-example": "^0.3.6",
-    "@loopx/core": "^0.3.6",
-    "@loopx/user-service": "^0.5.6",
+    "@loopx/auth-example": "^0.3.7",
+    "@loopx/core": "^0.3.7",
+    "@loopx/user-service": "^0.5.7",
     "client-sessions": "^0.8.0",
     "dotenv": "^16.3.1",
     "dotenv-extended": "^2.9.0"
@@ -40,7 +40,7 @@
     "@nutol/ts-config": "^0.2.1",
     "@types/client-sessions": "^0.8.3",
     "@types/jest": "^29.5.4",
-    "@types/node": "^20.5.3",
+    "@types/node": "^20.5.4",
     "del-cli": "^5.0.0",
     "jest": "^29.6.3",
     "tsx": "^3.12.7"
