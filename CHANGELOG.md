@@ -1,5 +1,7 @@
 
 
+## [0.3.2](https://github.com/betaly/loopauth-js/compare/0.3.1...0.3.2) (2023-08-24)
+
 ## [0.3.1](https://github.com/betaly/loopauth-js/compare/0.3.0...0.3.1) (2023-08-23)
 
 
