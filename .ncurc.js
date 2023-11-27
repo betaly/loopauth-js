@@ -1,3 +1,3 @@
 module.exports = {
-  reject: ['prettier', 'eslint-plugin-prettier', '@typescript-eslint/parser', '@typescript-eslint/eslint-plugin'],
+  // reject: ['prettier', 'eslint-plugin-prettier', '@typescript-eslint/parser', '@typescript-eslint/eslint-plugin'],
 };

@@ -43,10 +43,13 @@ export const assertPostFn = (mockFetch: jest.Mock) => {
  * @returns An object with the keys and values from the iterable
  */
 const itorToObject = <K extends string | number | symbol, V>(itor: IterableIterator<[K, V]>): Record<K, V> =>
-  [...itor].reduce((m, [key, value]) => {
-    m[key] = value;
-    return m;
-  }, {} as Record<K, V>);
+  [...itor].reduce(
+    (m, [key, value]) => {
+      m[key] = value;
+      return m;
+    },
+    {} as Record<K, V>,
+  );
 
 /**
  * Asserts that the supplied URL matches various criteria, including host, path, and query params.
@@ -169,7 +172,7 @@ export const loginWithRedirectFn = (mockWindow: any, mockFetch: any) => {
     } = processDefaultLoginWithRedirectOptions(testConfig);
     await client.loginWithRedirect(options);
 
-    if (!options || options.openUrl == null) {
+    if (options?.openUrl == null) {
       expect(mockWindow.location.assign).toHaveBeenCalled();
     }
 

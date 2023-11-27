@@ -14,7 +14,10 @@ export const RemoteErrorCodes = {
  * Thrown when network requests to the Auth server fail.
  */
 export class GenericError extends Error {
-  constructor(public error: string, public error_description: string) {
+  constructor(
+    public error: string,
+    public error_description: string,
+  ) {
     super(error_description);
     Object.setPrototypeOf(this, GenericError.prototype);
   }
@@ -71,7 +74,11 @@ export class PopupCancelledError extends GenericError {
  * Error thrown when the token exchange results in a `mfa_required` error
  */
 export class MfaRequiredError extends GenericError {
-  constructor(error: string, error_description: string, public mfa_token: string) {
+  constructor(
+    error: string,
+    error_description: string,
+    public mfa_token: string,
+  ) {
     super(error, error_description);
     //https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md#extending-built-ins-like-error-array-and-map-may-no-longer-work
     Object.setPrototypeOf(this, MfaRequiredError.prototype);

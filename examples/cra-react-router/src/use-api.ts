@@ -47,7 +47,7 @@ export const useApi = (url: string, options: any = {}): {error?: Error | null; l
         });
       }
     })();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   return state;
 };

@@ -13,7 +13,10 @@ export class TransactionManager {
   private transaction: Transaction | undefined;
   private readonly storageKey: string;
 
-  constructor(private storage: ClientStorage, private clientId: string) {
+  constructor(
+    private storage: ClientStorage,
+    private clientId: string,
+  ) {
     this.storageKey = `${TRANSACTION_STORAGE_KEY_PREFIX}.${this.clientId}`;
     this.transaction = this.storage.get(this.storageKey);
   }

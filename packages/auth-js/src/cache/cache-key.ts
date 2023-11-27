@@ -12,7 +12,11 @@ export class CacheKey {
   public clientId: string;
   public audience?: string;
 
-  constructor(data: CacheKeyData, public prefix: string = CACHE_KEY_PREFIX, public suffix?: string) {
+  constructor(
+    data: CacheKeyData,
+    public prefix: string = CACHE_KEY_PREFIX,
+    public suffix?: string,
+  ) {
     this.clientId = data.clientId;
     this.audience = data.audience;
   }

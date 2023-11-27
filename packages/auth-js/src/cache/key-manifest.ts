@@ -4,7 +4,10 @@ import {ICache, KeyManifestEntry, MaybePromise} from './types';
 export class CacheKeyManifest {
   private readonly manifestKey: string;
 
-  constructor(private cache: ICache, private clientId: string) {
+  constructor(
+    private cache: ICache,
+    private clientId: string,
+  ) {
     this.manifestKey = this.createManifestKeyFrom(this.clientId);
   }
 

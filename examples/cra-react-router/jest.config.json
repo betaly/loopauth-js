@@ -7,7 +7,7 @@
   "testPathIgnorePatterns": ["node_modules", "dist"],
   "testEnvironment": "jsdom",
   "testEnvironmentOptions": {
-    "url": "https://www.example.com/",
+    "url": "https://www.example.com/"
   },
   "coverageReporters": ["html", "text", "text-summary", "cobertura"]
 }

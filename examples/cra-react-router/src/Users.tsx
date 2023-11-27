@@ -1,7 +1,8 @@
+import React from 'react';
+
 import {Error} from './Error';
 import {Loading} from './Loading';
 import {useApi} from './use-api';
-import React from 'react';
 
 export function Users() {
   const {

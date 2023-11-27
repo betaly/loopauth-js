@@ -1,15 +1,15 @@
-import App from './App';
 import {AppState, LoopAuthProvider, LoopAuthProviderOptions} from '@loopauth/auth-react';
 import React, {PropsWithChildren} from 'react';
-import ReactDOM from 'react-dom';
 import {createRoot} from 'react-dom/client';
 import {BrowserRouter, useNavigate} from 'react-router-dom';
+
+import App from './App';
 
 const LoopAuthProviderWithRedirectCallback = ({children, ...props}: PropsWithChildren<LoopAuthProviderOptions>) => {
   const navigate = useNavigate();
 
   const onRedirectCallback = (appState?: AppState) => {
-    navigate((appState && appState.returnTo) || window.location.pathname);
+    navigate(appState?.returnTo ?? window.location.pathname);
   };
 
   return (
