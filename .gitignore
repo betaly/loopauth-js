@@ -27,6 +27,8 @@ test-results
 junit.xml
 build
 .env
+.next
+.rollup.cache
 
 # ignore dist conetents but dist directory for `flat` modules
 packages/*/dist/*
