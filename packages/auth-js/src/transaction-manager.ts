@@ -24,7 +24,7 @@ export class TransactionManager {
   public create(transaction: Transaction) {
     this.transaction = transaction;
 
-    this.storage.save(this.storageKey, transaction, {
+    this.storage.set(this.storageKey, transaction, {
       daysUntilExpire: 1,
     });
   }

@@ -15,7 +15,7 @@ export const CookieStorage = {
     return <T>JSON.parse(value);
   },
 
-  save(key: string, value: unknown, options?: ClientStorageOptions): void {
+  set(key: string, value: unknown, options?: ClientStorageOptions): void {
     let cookieAttributes: Cookies.CookieAttributes = {};
 
     if ('https:' === window.location.protocol) {

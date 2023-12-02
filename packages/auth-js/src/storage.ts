@@ -9,7 +9,7 @@ export interface ClientStorageOptions {
 export interface ClientStorage {
   get<T extends object>(key: string): T | undefined;
 
-  save(key: string, value: any, options?: ClientStorageOptions): void;
+  set(key: string, value: any, options?: ClientStorageOptions): void;
 
   remove(key: string, options?: ClientStorageOptions): void;
 }
@@ -25,7 +25,7 @@ export class InMemoryStorage implements ClientStorage {
     this.storage.delete(key);
   }
 
-  save(key: string, value: any, options?: ClientStorageOptions): void {
+  set(key: string, value: any, options?: ClientStorageOptions): void {
     this.storage.set(key, value);
   }
 }

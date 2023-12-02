@@ -19,7 +19,7 @@ export const SessionStorage = {
     return <T>JSON.parse(value);
   },
 
-  save(key: string, value: any): void {
+  set(key: string, value: any): void {
     sessionStorage.setItem(key, JSON.stringify(value));
   },
 
