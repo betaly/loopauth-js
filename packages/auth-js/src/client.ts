@@ -153,7 +153,10 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
    *
    * @param options
    */
-  public async logout(options: LogoutOptions = {}) {
+  public async logout(options: LogoutOptions | string = {}) {
+    if (typeof options === 'string') {
+      options = {logoutParams: {returnTo: options}};
+    }
     const openUrl = options.openUrl ?? this.options.openUrl;
     const clientId = options.clientId || this.options.clientId;
     const entry = await this.cacheManager.get(new CacheKey({clientId}));
