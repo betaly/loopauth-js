@@ -1,0 +1,80 @@
+{
+  "name": "@loopauth/auth-next",
+  "description": "",
+  "version": "0.1.0",
+  "keywords": [],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "typesVersions": {
+    "*": {
+      "*": [
+        "./dist/index.d.ts"
+      ],
+      "edge": [
+        "./dist/edge.d.ts"
+      ],
+      "server-actions": [
+        "./dist/server-actions.d.ts"
+      ]
+    }
+  },
+  "exports": {
+    ".": {
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./edge": {
+      "require": "./dist/edge.cjs",
+      "import": "./dist/edge.js",
+      "types": "./dist/edge.d.ts"
+    },
+    "./server-actions": {
+      "require": "./dist/server-actions.cjs",
+      "import": "./dist/server-actions.js",
+      "types": "./dist/server-actions.d.ts"
+    }
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "author": "TY",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "version": "replace '\\d+\\.\\d+\\.\\d+' \\'$(npx json -f package.json version)\\' src/version.ts && git add src/version.ts",
+    "build": "nb-tsc && rollup -c",
+    "clean": "del 'loopx-auth-js*.tgz' 'dist/*' '*.tsbuildinfo' 'package'",
+    "pretest": "yarn run clean && yarn run build",
+    "test": "yarn run pretest && yarn run jest",
+    "jest": "jest"
+  },
+  "dependencies": {
+    "@edge-runtime/cookies": "^4.0.2",
+    "@loopauth/auth-js": "workspace:^",
+    "@loopauth/auth-node": "workspace:^",
+    "tily": "^2.22.8"
+  },
+  "devDependencies": {
+    "@nutol/build": "^0.2.17",
+    "@nutol/eslint-config": "^0.2.12",
+    "@nutol/ts-config": "^0.2.2",
+    "@types/jest": "^29.5.10",
+    "@types/node": "^20.10.2",
+    "del-cli": "^5.1.0",
+    "jest": "^29.7.0",
+    "next": "^14.0.3",
+    "next-test-api-route-handler": "^3.1.10",
+    "rollup": "^4.6.1",
+    "ts-essentials": "^9.4.1"
+  },
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ]
+}
