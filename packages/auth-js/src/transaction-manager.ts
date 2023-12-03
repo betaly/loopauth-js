@@ -10,7 +10,6 @@ interface Transaction {
 }
 
 export class TransactionManager {
-  private transaction: Transaction | undefined;
   private readonly storageKey: string;
 
   constructor(
@@ -18,23 +17,19 @@ export class TransactionManager {
     private clientId: string,
   ) {
     this.storageKey = `${TRANSACTION_STORAGE_KEY_PREFIX}.${this.clientId}`;
-    this.transaction = this.storage.get(this.storageKey);
   }
 
-  public create(transaction: Transaction) {
-    this.transaction = transaction;
-
-    this.storage.set(this.storageKey, transaction, {
+  public async create(transaction: Transaction) {
+    await this.storage.set(this.storageKey, transaction, {
       daysUntilExpire: 1,
     });
   }
 
-  public get(): Transaction | undefined {
-    return this.transaction;
+  public async get(): Promise<Transaction | undefined> {
+    return this.storage.get(this.storageKey);
   }
 
-  public remove() {
-    delete this.transaction;
-    this.storage.remove(this.storageKey);
+  public async remove() {
+    await this.storage.remove(this.storageKey);
   }
 }

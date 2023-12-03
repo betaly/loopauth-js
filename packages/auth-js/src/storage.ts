@@ -7,25 +7,25 @@ export interface ClientStorageOptions {
  * Defines a type that handles storage to/from a storage location
  */
 export interface ClientStorage {
-  get<T extends object>(key: string): T | undefined;
+  get<T extends object>(key: string): Promise<T | undefined>;
 
-  set(key: string, value: any, options?: ClientStorageOptions): void;
+  set(key: string, value: any, options?: ClientStorageOptions): Promise<void>;
 
-  remove(key: string, options?: ClientStorageOptions): void;
+  remove(key: string, options?: ClientStorageOptions): Promise<void>;
 }
 
 export class InMemoryStorage implements ClientStorage {
   private storage = new Map<string, any>();
 
-  get<T extends object>(key: string): T | undefined {
+  async get<T extends object>(key: string): Promise<T | undefined> {
     return this.storage.get(key);
   }
 
-  remove(key: string, options?: ClientStorageOptions): void {
+  async remove(key: string, options?: ClientStorageOptions): Promise<void> {
     this.storage.delete(key);
   }
 
-  set(key: string, value: any, options?: ClientStorageOptions): void {
+  async set(key: string, value: any, options?: ClientStorageOptions): Promise<void> {
     this.storage.set(key, value);
   }
 }

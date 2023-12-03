@@ -9,6 +9,7 @@ import {
   CacheKeyManifest,
   CacheManager,
   DecodedToken,
+  ICache,
   IdTokenEntry,
   InMemoryCache,
 } from './cache';
@@ -57,6 +58,8 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
   readonly loginPath: string;
   readonly logoutPath: string;
 
+  readonly cache: ICache;
+
   protected transactionManager: TransactionManager;
   protected options: MarkRequired<Options, 'authorizationParams'>;
   protected cacheManager: CacheManager;
@@ -99,7 +102,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
 
     this.transactionManager = new TransactionManager(this.initTransactionStorage(), this.options.clientId);
 
-    const cache = this.initCache();
+    const cache = (this.cache = this.initCache());
     this.cacheManager = new CacheManager(
       cache,
       !cache.allKeys ? new CacheKeyManifest(cache, this.options.clientId) : undefined,
@@ -124,7 +127,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
 
     const {url, ...transaction} = await this._prepareAuthorizeUrl(urlOptions.authorizationParams || {});
 
-    this.transactionManager.create({
+    await this.transactionManager.create({
       ...transaction,
       appState,
     });
@@ -216,13 +219,13 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
 
     const {code, error, error_description} = parseAuthenticationResult(queryStringFragments.join(''));
 
-    const transaction = this.transactionManager.get();
+    const transaction = await this.transactionManager.get();
 
     if (!transaction) {
       throw new GenericError('missing_transaction', 'Invalid state');
     }
 
-    this.transactionManager.remove();
+    await this.transactionManager.remove();
 
     if (error) {
       throw new AuthenticationError(error, error_description || error);
