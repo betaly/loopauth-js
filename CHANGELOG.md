@@ -1,5 +1,20 @@
 
 
+# [0.4.0](https://github.com/betaly/loopauth-js/compare/0.3.4...0.4.0) (2023-12-06)
+
+
+### Features
+
+* add version files to next and node packages (#main) ([000a03f](https://github.com/betaly/loopauth-js/commit/000a03f9401890ac7eacf2190d61b4b57a9ab2fb))
+* **auth-api:** integrate Mixin and update environment variables #main ([4a35a4d](https://github.com/betaly/loopauth-js/commit/4a35a4d1c320d5d2ef431e12171d700d52e3e998))
+* **auth-js:** convert sync methods to async in storage and transaction classes #main ([9ca663d](https://github.com/betaly/loopauth-js/commit/9ca663df359579c3065ffaf7701335ee58b8d675))
+* **auth-js:** replace internal base64 utility with urlsafer module #main ([2b0fe66](https://github.com/betaly/loopauth-js/commit/2b0fe66200d82ae8467aab829a9125df31dc0475))
+* **auth-next:** initial add auth-next package ([d2b0e3c](https://github.com/betaly/loopauth-js/commit/d2b0e3ce01e8faded2564d51ac6265a1e7ac0194))
+* **auth-node:** setup base auth-node package (#main) ([f1b6801](https://github.com/betaly/loopauth-js/commit/f1b680115dcc4e1d2f4fef61e5d9143f42478d1a))
+* **client.ts:** add string parameter support to logout method #main ([2263b21](https://github.com/betaly/loopauth-js/commit/2263b215dd5fcc40b2da75dedef1c2f5dd8357d3))
+* Improve readability of README files (#main) ([7c3d58e](https://github.com/betaly/loopauth-js/commit/7c3d58e3d30e53f7b7028aac78bedc7fd9d8ec5e))
+* **next-app:** initial add next app example ([17712b8](https://github.com/betaly/loopauth-js/commit/17712b8f827a8fd5425542b2a85fb014fe07da6f))
+
 ## [0.3.4](https://github.com/betaly/loopauth-js/compare/0.3.3...0.3.4) (2023-11-30)
 
 ## [0.3.3](https://github.com/betaly/loopauth-js/compare/0.3.2...0.3.3) (2023-11-27)
