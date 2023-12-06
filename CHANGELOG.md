@@ -1,5 +1,12 @@
 
 
+# [0.5.0](https://github.com/betaly/loopauth-js/compare/0.4.0...0.5.0) (2023-12-06)
+
+
+### Features
+
+* Update next-app example configs and README (#main) ([c6de6d6](https://github.com/betaly/loopauth-js/commit/c6de6d63b02d849d9cf536014f59c616c4957dbc))
+
 # [0.4.0](https://github.com/betaly/loopauth-js/compare/0.3.4...0.4.0) (2023-12-06)
 
 
