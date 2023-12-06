@@ -1,6 +1,6 @@
 import pick from 'object.pick';
+import UrlSafer from 'urlsafer';
 
-import {urlSafeBase64} from './base64';
 import {DEFAULT_AUTH_CLIENT} from './constants';
 import {fetchJson} from './fetch';
 import {
@@ -55,7 +55,7 @@ export async function fetchToken(
       body,
       headers: {
         'Content-Type': contentType,
-        'LoopAuth-Client': urlSafeBase64.encode(JSON.stringify(authClient || DEFAULT_AUTH_CLIENT)),
+        'LoopAuth-Client': UrlSafer.encode(JSON.stringify(authClient || DEFAULT_AUTH_CLIENT)),
       },
       timeout,
     },

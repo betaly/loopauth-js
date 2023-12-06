@@ -1,4 +1,5 @@
-import {urlSafeBase64} from './base64';
+import UrlSafer from 'urlsafer';
+
 import {JWTVerifyOptions, User} from './types';
 
 export interface JWTDecodeResult {
@@ -22,11 +23,11 @@ export const decode = (token: string): JWTDecodeResult => {
     throw new Error('Invalid token');
   }
 
-  const json = JSON.parse(urlSafeBase64.decode(payload));
+  const json = JSON.parse(UrlSafer.decode(payload));
 
   return {
     encoded: {header, payload, signature},
-    header: JSON.parse(urlSafeBase64.decode(header)),
+    header: JSON.parse(UrlSafer.decode(header)),
     user: json,
   };
 };

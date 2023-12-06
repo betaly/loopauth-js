@@ -1,6 +1,6 @@
 import {ClientStorage} from './storage';
 
-const TRANSACTION_STORAGE_KEY_PREFIX = 'ma.spajs.txs';
+const TRANSACTION_STORAGE_KEY_PREFIX = 'la.spajs.txs';
 
 interface Transaction {
   audience?: string;

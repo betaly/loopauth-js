@@ -1,7 +1,7 @@
 // @ts-ignore
 import {acquireLockSpy} from 'browser-tabs-lock';
+import UrlSafer from 'urlsafer';
 
-import {urlSafeBase64} from '../../../base64';
 import {DEFAULT_AUTH_CLIENT} from '../../../constants';
 import * as fetches from '../../../fetch';
 import * as utils from '../../../utils';
@@ -42,7 +42,7 @@ describe('AuthClient', () => {
           refreshToken: TEST_REFRESH_TOKEN,
         },
         {
-          'LoopAuth-Client': urlSafeBase64.encode(JSON.stringify(DEFAULT_AUTH_CLIENT)),
+          'LoopAuth-Client': UrlSafer.encode(JSON.stringify(DEFAULT_AUTH_CLIENT)),
         },
       );
     });
@@ -65,7 +65,7 @@ describe('AuthClient', () => {
           refreshToken: TEST_REFRESH_TOKEN,
         },
         {
-          'LoopAuth-Client': urlSafeBase64.encode(JSON.stringify(DEFAULT_AUTH_CLIENT)),
+          'LoopAuth-Client': UrlSafer.encode(JSON.stringify(DEFAULT_AUTH_CLIENT)),
         },
         undefined,
         false,

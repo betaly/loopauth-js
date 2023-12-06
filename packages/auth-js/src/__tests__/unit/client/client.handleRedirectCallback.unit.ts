@@ -1,6 +1,6 @@
 import {expect} from '@jest/globals';
+import UrlSafer from 'urlsafer';
 
-import {urlSafeBase64} from '../../../base64';
 import {DEFAULT_AUTH_CLIENT} from '../../../constants';
 import * as fetches from '../../../fetch';
 import * as utils from '../../../utils';
@@ -98,7 +98,7 @@ describe('AuthClient', () => {
           code: TEST_CODE,
         },
         {
-          'LoopAuth-Client': urlSafeBase64.encode(JSON.stringify(DEFAULT_AUTH_CLIENT)),
+          'LoopAuth-Client': UrlSafer.encode(JSON.stringify(DEFAULT_AUTH_CLIENT)),
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         0,

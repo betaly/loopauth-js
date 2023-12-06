@@ -1,7 +1,6 @@
 import version from './version';
 
 export * from './api';
-export * from './base64';
 export * from './cache';
 export * from './client';
 export * from './constants';

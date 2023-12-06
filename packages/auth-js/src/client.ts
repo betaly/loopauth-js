@@ -1,7 +1,7 @@
 import {MarkRequired} from 'ts-essentials';
+import UrlSafer from 'urlsafer';
 
 import {fetchToken, postLogout} from './api';
-import {urlSafeBase64} from './base64';
 import {
   CACHE_KEY_ID_TOKEN_SUFFIX,
   CacheEntry,
@@ -542,7 +542,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
 
   private _url(path: string) {
     const authClient = encodeURIComponent(
-      urlSafeBase64.encode(JSON.stringify(this.options.authClient || DEFAULT_AUTH_CLIENT)),
+      UrlSafer.encode(JSON.stringify(this.options.authClient || DEFAULT_AUTH_CLIENT)),
     );
     return `${this.domainUrl}${path}&authClient=${authClient}`;
   }

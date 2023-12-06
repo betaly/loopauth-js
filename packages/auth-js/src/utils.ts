@@ -1,4 +1,5 @@
-import {urlSafeBase64} from './base64';
+import UrlSafer from 'urlsafer';
+
 import {DEFAULT_AUTHORIZE_TIMEOUT_IN_SECONDS} from './constants';
 import {AuthenticationResult} from './types';
 
@@ -87,5 +88,5 @@ const decodeB64 = (input: string) =>
 export const urlDecodeB64 = (input: string) => decodeB64(input.replace(/_/g, '/').replace(/-/g, '+'));
 
 export const stringToBase64UrlEncoded = (input: string) => {
-  return urlEncodeB64(urlSafeBase64.encode(input));
+  return urlEncodeB64(UrlSafer.encode(input));
 };

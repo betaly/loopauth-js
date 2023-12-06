@@ -1,11 +1,10 @@
 import {expect} from '@jest/globals';
-
-import {urlSafeBase64} from '../base64';
+import UrlSafer from 'urlsafer';
 
 export const expectToHaveBeenCalledWithAuthClientParam = (mock: any, expected: any) => {
   const [[url]] = (<jest.Mock>mock).mock.calls;
   const param = new URL(url).searchParams.get('authClient');
-  const decodedParam = decodeURIComponent(urlSafeBase64.decode(param as string));
+  const decodedParam = decodeURIComponent(UrlSafer.decode(param as string));
   const actual = JSON.parse(decodedParam);
   expect(actual).toStrictEqual(expected);
 };

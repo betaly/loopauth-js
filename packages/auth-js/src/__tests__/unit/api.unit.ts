@@ -1,7 +1,7 @@
 import {expect} from '@jest/globals';
+import UrlSafer from 'urlsafer';
 
 import {fetchToken} from '../../api';
-import {urlSafeBase64} from '../../base64';
 import {DEFAULT_AUTH_CLIENT, DEFAULT_SILENT_TOKEN_RETRY_COUNT} from '../../constants';
 import version from '../../version';
 
@@ -42,7 +42,7 @@ describe('fetchToken', () => {
       body: JSON.stringify(options),
       headers: {
         'Content-Type': 'application/json',
-        'LoopAuth-Client': urlSafeBase64.encode(JSON.stringify(authClient)),
+        'LoopAuth-Client': UrlSafer.encode(JSON.stringify(authClient)),
       },
       method: 'POST',
       signal: abortController.signal,

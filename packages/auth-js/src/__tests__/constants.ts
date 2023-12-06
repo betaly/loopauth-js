@@ -1,8 +1,9 @@
-import {urlSafeBase64} from '../base64';
+import UrlSafer from 'urlsafer';
+
 import version from '../version';
 
 export const TEST_AUTH_CLIENT_QUERY_STRING = `&authClient=${encodeURIComponent(
-  urlSafeBase64.encode(
+  UrlSafer.encode(
     JSON.stringify({
       name: 'auth-js',
       version: version,

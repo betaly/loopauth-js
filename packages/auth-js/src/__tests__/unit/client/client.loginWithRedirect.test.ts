@@ -1,4 +1,5 @@
-import {urlSafeBase64} from '../../../base64';
+import UrlSafer from 'urlsafer';
+
 import * as utils from '../../../utils';
 import version from '../../../version';
 import {
@@ -51,7 +52,7 @@ describe('AuthClient', () => {
           code: TEST_CODE,
         },
         {
-          'LoopAuth-Client': urlSafeBase64.encode(
+          'LoopAuth-Client': UrlSafer.encode(
             JSON.stringify({
               name: 'auth-js',
               version: version,
@@ -86,7 +87,7 @@ describe('AuthClient', () => {
           code: TEST_CODE,
         },
         {
-          'LoopAuth-Client': urlSafeBase64.encode(
+          'LoopAuth-Client': UrlSafer.encode(
             JSON.stringify({
               name: 'auth-js',
               version: version,
