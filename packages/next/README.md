@@ -1,6 +1,6 @@
 # LoopAuth Next.js SDK
 
-> The LoopAuth Next.js SDK written in TypeScript. 
+> The LoopAuth Next.js SDK written in TypeScript.
 
 ## Installation
 
