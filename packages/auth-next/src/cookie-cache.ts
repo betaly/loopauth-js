@@ -56,7 +56,7 @@ export class CookieCache implements ICache {
   }
 
   async save(): Promise<void> {
-    this.persist?.(this.data);
+    return this.persist?.(this.data);
   }
 }
 

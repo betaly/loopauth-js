@@ -7,7 +7,6 @@ import {NextClientOptions} from './types';
 export * from './types';
 
 export class NextBaseClient {
-  protected cache?: CookieCache;
   protected navigateUrl?: string;
 
   constructor(
@@ -16,7 +15,6 @@ export class NextBaseClient {
   ) {}
 
   protected createNodeClient(cache: CookieCache, openUrl?: (url: string) => void): NodeClient {
-    this.cache = cache;
     return new this.Client({
       cache,
       transactionStorage: new CookieStorage(cache),

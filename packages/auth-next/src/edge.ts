@@ -15,13 +15,13 @@ export class NextClient extends NextBaseClient {
   }
 
   handleSignIn = (interactionMode?: InteractionMode) => async (request: Request) => {
-    const {nodeClient, headers} = await this.createNodeClientFromEdgeRequest(request);
+    const {nodeClient, headers, cache} = await this.createNodeClientFromEdgeRequest(request);
     await nodeClient.loginWithRedirect({
       /*redirectUri, */ authorizationParams: {
         interaction_mode: interactionMode,
       },
     });
-    await this.cache?.save();
+    await cache?.save();
 
     const response = new Response(null, {
       headers,
@@ -38,10 +38,10 @@ export class NextClient extends NextBaseClient {
   handleSignOut =
     (redirectUri = this.options.baseUrl) =>
     async (request: NextRequest) => {
-      const {nodeClient, headers} = await this.createNodeClientFromEdgeRequest(request);
+      const {nodeClient, headers, cache} = await this.createNodeClientFromEdgeRequest(request);
       await nodeClient.logout(redirectUri);
-      await this.cache?.clear();
-      await this.cache?.save();
+      await cache?.clear();
+      await cache?.save();
 
       const response = new Response(null, {
         headers,
@@ -58,7 +58,7 @@ export class NextClient extends NextBaseClient {
   handleSignInCallback =
     (redirectTo = this.options.baseUrl) =>
     async (request: NextRequest) => {
-      const {nodeClient, headers} = await this.createNodeClientFromEdgeRequest(request);
+      const {nodeClient, headers, cache} = await this.createNodeClientFromEdgeRequest(request);
 
       if (request.url) {
         // When app is running behind reverse proxy which is common for edge runtime,
@@ -69,7 +69,7 @@ export class NextClient extends NextBaseClient {
           this.options.baseUrl,
         );
         await nodeClient.handleRedirectCallback(callbackUrl.toString());
-        await this.cache?.save();
+        await cache?.save();
       }
 
       const response = new Response(null, {
@@ -100,24 +100,22 @@ export class NextClient extends NextBaseClient {
     const cookies = new RequestCookies(request.headers);
     const headers = new Headers();
     const responseCookies = new ResponseCookies(headers);
-
-    const nodeClient = super.createNodeClient(
-      await CookieCache.create(
-        {
-          secret: this.options.cookieSecret,
-          crypto,
-        },
-        cookies.get(cookieName)?.value ?? '',
-        value => {
-          responseCookies.set(cookieName, value, {
-            maxAge: 14 * 3600 * 24,
-            secure: this.options.cookieSecure,
-          });
-        },
-      ),
+    const cache = await CookieCache.create(
+      {
+        secret: this.options.cookieSecret,
+        crypto,
+      },
+      cookies.get(cookieName)?.value ?? '',
+      value => {
+        responseCookies.set(cookieName, value, {
+          maxAge: 14 * 3600 * 24,
+          secure: this.options.cookieSecure,
+        });
+      },
     );
+    const nodeClient = super.createNodeClient(cache);
 
-    return {nodeClient, headers};
+    return {nodeClient, headers, cache};
   }
 }
 

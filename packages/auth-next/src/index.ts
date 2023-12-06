@@ -8,6 +8,7 @@ import {type NextApiRequestCookies} from 'next/dist/server/api-utils/index';
 import {NextBaseClient, NextClientOptions} from './client';
 import {CookieCache} from './cookie-cache';
 
+export * from './types';
 export * from '@loopauth/auth-node';
 
 export class NextClient extends NextBaseClient {
@@ -18,13 +19,13 @@ export class NextClient extends NextBaseClient {
   handleSignIn =
     (interactionMode?: InteractionMode): NextApiHandler =>
     async (request, response) => {
-      const nodeClient = await this.createNodeClientFromNextApi(request, response);
+      const {nodeClient, cache} = await this.createNodeClientFromNextApi(request, response);
       await nodeClient.loginWithRedirect({
         authorizationParams: {
           interaction_mode: interactionMode,
         },
       });
-      await this.cache?.save();
+      await cache?.save();
 
       if (this.navigateUrl) {
         response.redirect(this.navigateUrl);
@@ -34,11 +35,11 @@ export class NextClient extends NextBaseClient {
   handleSignInCallback =
     (redirectTo = this.options.baseUrl): NextApiHandler =>
     async (request, response) => {
-      const nodeClient = await this.createNodeClientFromNextApi(request, response);
+      const {nodeClient, cache} = await this.createNodeClientFromNextApi(request, response);
 
       if (request.url) {
         await nodeClient.handleRedirectCallback(`${this.options.baseUrl}${request.url}`);
-        await this.cache?.save();
+        await cache?.save();
         response.redirect(redirectTo);
       }
     };
@@ -46,11 +47,11 @@ export class NextClient extends NextBaseClient {
   handleSignOut =
     (redirectUri = this.options.baseUrl): NextApiHandler =>
     async (request, response) => {
-      const nodeClient = await this.createNodeClientFromNextApi(request, response);
+      const {nodeClient, cache} = await this.createNodeClientFromNextApi(request, response);
       await nodeClient.logout(redirectUri);
 
-      await this.cache?.clear();
-      await this.cache?.save();
+      await cache?.clear();
+      await cache?.save();
 
       if (this.navigateUrl) {
         response.redirect(this.navigateUrl);
@@ -93,7 +94,7 @@ export class NextClient extends NextBaseClient {
   withLoopAuthApiRoute =
     (handler: NextApiHandler, config: GetContextOptions = {}): NextApiHandler =>
     async (request, response) => {
-      const nodeClient = await this.createNodeClientFromNextApi(request, response);
+      const {nodeClient} = await this.createNodeClientFromNextApi(request, response);
       const user = await nodeClient.getContext(config);
 
       Object.defineProperty(request, 'user', {enumerable: true, get: () => user});
@@ -109,7 +110,7 @@ export class NextClient extends NextBaseClient {
       options: GetContextOptions = {},
     ) =>
     async (context: GetServerSidePropsContext) => {
-      const nodeClient = await this.createNodeClientFromNextApi(context.req, context.res);
+      const {nodeClient} = await this.createNodeClientFromNextApi(context.req, context.res);
       const user = await nodeClient.getContext(options);
 
       Object.defineProperty(context.req, 'user', {enumerable: true, get: () => user});
@@ -122,26 +123,25 @@ export class NextClient extends NextBaseClient {
       cookies: NextApiRequestCookies;
     },
     response: ServerResponse,
-  ): Promise<NodeClient> {
+  ) {
     const cookieName = `loopauth:${this.options.clientId}`;
-
-    return this.createNodeClient(
-      await CookieCache.create(
-        {
-          secret: this.options.cookieSecret,
-          crypto: crypto as Crypto,
-        },
-        request.cookies[cookieName] ?? '',
-        value => {
-          const secure = this.options.cookieSecure;
-          const maxAge = 14 * 3600 * 24;
-          response.setHeader(
-            'Set-Cookie',
-            `${cookieName}=${value}; Path=/; Max-Age=${maxAge}; ${secure ? 'Secure; SameSite=None' : ''}`,
-          );
-        },
-      ),
+    const cache = await CookieCache.create(
+      {
+        secret: this.options.cookieSecret,
+        crypto: crypto as Crypto,
+      },
+      request.cookies[cookieName] ?? '',
+      value => {
+        const secure = this.options.cookieSecure;
+        const maxAge = 14 * 3600 * 24;
+        response.setHeader(
+          'Set-Cookie',
+          `${cookieName}=${value}; Path=/; Max-Age=${maxAge}; ${secure ? 'Secure; SameSite=None' : ''}`,
+        );
+      },
     );
+    const nodeClient = this.createNodeClient(cache);
+    return {nodeClient, cache};
   }
 }
 
