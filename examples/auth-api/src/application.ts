@@ -3,8 +3,9 @@ import {RestTags} from '@loopback/rest';
 import {ApplicationConfig, AuthExampleApplication} from '@loopx/auth-example';
 import {ILogger, LOGGER} from '@loopx/core';
 import Sessions, {type SessionOptions} from 'client-sessions';
+import {IntegrateMixin} from 'loopback4-plus';
 
-export class AuthApiApplication extends AuthExampleApplication {
+export class AuthApiApplication extends IntegrateMixin(AuthExampleApplication) {
   constructor(config?: ApplicationConfig) {
     super(config);
 
@@ -23,5 +24,7 @@ export class AuthApiApplication extends AuthExampleApplication {
         chain: RestTags.ACTION_MIDDLEWARE_CHAIN,
       },
     );
+
+    this.projectRoot = __dirname;
   }
 }
