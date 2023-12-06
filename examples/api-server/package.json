@@ -1,5 +1,5 @@
 {
-  "name": "@loopauth/auth-api",
+  "name": "@loopauth/example-api-server",
   "description": "A loopauth example api server",
   "version": "0.1.0",
   "private": true,
