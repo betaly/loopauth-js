@@ -1,4 +1,4 @@
-import {AppState, LoopAuthProvider, LoopAuthProviderOptions} from '@loopauth/auth-react';
+import {AppState, LoopAuthProvider, LoopAuthProviderOptions} from '@loopauth/react';
 import React, {PropsWithChildren} from 'react';
 import {createRoot} from 'react-dom/client';
 import {BrowserRouter, useNavigate} from 'react-router-dom';

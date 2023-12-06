@@ -1,3 +1,0 @@
-# @loopauth/auth-node
-
->

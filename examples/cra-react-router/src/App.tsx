@@ -1,6 +1,6 @@
 import './App.css';
 
-import {useLoopAuth, withAuthenticationRequired} from '@loopauth/auth-react';
+import {useLoopAuth, withAuthenticationRequired} from '@loopauth/react';
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
 

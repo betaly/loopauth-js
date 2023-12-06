@@ -4,7 +4,7 @@
 // good practise to add `server-only` preemptively.
 import 'server-only';
 
-import {LoopAuthContext} from '@loopauth/auth-node';
+import {LoopAuthContext} from '@loopauth/node';
 import {cookies} from 'next/headers';
 
 import {AUTH_OPTIONS} from '@/options';

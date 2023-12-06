@@ -1,4 +1,4 @@
-import {useLoopAuth} from '@loopauth/auth-react';
+import {useLoopAuth} from '@loopauth/react';
 import {useEffect, useState} from 'react';
 
 export const useApi = (url: string, options: any = {}): {error?: Error | null; loading: boolean; data?: any} => {

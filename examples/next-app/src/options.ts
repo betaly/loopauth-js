@@ -1,4 +1,4 @@
-import {NextClientOptions} from '@loopauth/auth-next';
+import {NextClientOptions} from '@loopauth/next';
 
 export const AUTH_OPTIONS: NextClientOptions = {
   clientId: process.env.NEXT_APP_CLIENT_ID ?? '<client-id>',

@@ -1,4 +1,4 @@
-import {useLoopAuth} from '@loopauth/auth-react';
+import {useLoopAuth} from '@loopauth/react';
 import React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
@@ -20,7 +20,7 @@ export function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container-fluid">
-        <span className="navbar-brand">@loopauth/auth-react</span>
+        <span className="navbar-brand">@loopauth/react</span>
         <div className="collapse navbar-collapse">
           <div className="navbar-nav">
             <Link to="/" className={`nav-item nav-link${pathname === '/' ? ' active' : ''}`}>
