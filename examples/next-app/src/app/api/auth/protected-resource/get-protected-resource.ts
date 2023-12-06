@@ -2,7 +2,6 @@
 // will never run on the client. Even though this particular api
 // doesn't currently use sensitive environment variables, it's
 // good practise to add `server-only` preemptively.
-// eslint-disable-next-line import/no-unassigned-import
 import 'server-only';
 
 import {cookies} from 'next/headers';
@@ -29,6 +28,5 @@ export async function getProtectedResource(): Promise<ProtectedResourceResponse>
     return {error: 'Something went wrong!'};
   }
 
-  // eslint-disable-next-line no-restricted-syntax
   return (await response.json()) as {data: string};
 }

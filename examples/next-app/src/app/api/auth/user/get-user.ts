@@ -2,7 +2,6 @@
 // will never run on the client. Even though this particular api
 // doesn't currently use sensitive environment variables, it's
 // good practise to add `server-only` preemptively.
-// eslint-disable-next-line import/no-unassigned-import
 import 'server-only';
 
 import {LoopAuthContext} from '@loopauth/auth-node';
@@ -22,8 +21,5 @@ export async function getUser() {
     throw new Error('Something went wrong!');
   }
 
-  // eslint-disable-next-line no-restricted-syntax
-  const user = (await response.json()) as LoopAuthContext;
-
-  return user;
+  return (await response.json()) as LoopAuthContext;
 }
