@@ -1,6 +1,7 @@
 import '../mocks/cookie-cache.module';
 import '../mocks/loopauth-node.module';
 
+import * as crypto from 'crypto';
 import {NextApiResponse} from 'next';
 import {testApiHandler} from 'next-test-api-route-handler';
 
@@ -40,7 +41,7 @@ describe('next/client', () => {
     const cache = await CookieCache.create(
       {
         secret: OPTIONS.cookieSecret,
-        crypto: crypto,
+        crypto: crypto as Crypto,
       },
       'cookie',
     );
