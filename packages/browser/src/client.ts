@@ -19,6 +19,10 @@ export class WebAuthClient extends AuthClient<WebAuthClientOptions> {
     return super.handleRedirectCallback(url);
   }
 
+  protected openUrlWithFallback(url: string) {
+    window.location.assign(url);
+  }
+
   protected initTransactionStorage() {
     if (this.options.transactionStorage) {
       return this.options.transactionStorage;

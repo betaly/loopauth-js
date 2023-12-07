@@ -1,7 +1,7 @@
 import {expect} from '@jest/globals';
 
 import * as utils from '../../../utils';
-import {TEST_CLIENT_CHALLENGE, TEST_CLIENT_ID} from '../../constants';
+import {TEST_AUTH_CLIENT_QUERY_STRING, TEST_CLIENT_CHALLENGE, TEST_CLIENT_ID, TEST_DOMAIN} from '../../constants';
 import {InMemoryAsyncCacheNoKeys} from '../cache/shared';
 import {fetchResponse, loginWithRedirectFn, prepareClientMocks} from './helpers';
 
@@ -21,6 +21,29 @@ describe('AuthClient', () => {
       await client.logout();
 
       expect(mockFetch).not.toHaveBeenCalled();
+    });
+
+    it('open url with returnTo param', async () => {
+      const client = setup();
+
+      const params = {
+        client_id: TEST_CLIENT_ID,
+        returnTo: 'http://localhost:3000',
+      };
+
+      await loginWithRedirect(client);
+      mockFetch.mockResolvedValueOnce(
+        fetchResponse(true, {
+          success: true,
+          key: '123',
+        }),
+      );
+      await client.logout({logoutParams: {returnTo: params.returnTo}});
+
+      expect(mockFetch).lastCalledWith(
+        `https://${TEST_DOMAIN}/logout?${new URLSearchParams(params).toString()}${TEST_AUTH_CLIENT_QUERY_STRING}`,
+        expect.anything(),
+      );
     });
 
     it('clears the cache for the global clientId', async () => {

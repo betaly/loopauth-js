@@ -35,6 +35,7 @@ import {
   Fetcher,
   GetTokenSilentlyOptions,
   LogoutOptions,
+  LogoutUrlOptions,
   RedirectLoginOptions,
   RedirectLoginResult,
   RefreshTokenRequestTokenOptions,
@@ -157,17 +158,20 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     if (typeof options === 'string') {
       options = {logoutParams: {returnTo: options}};
     }
-    const openUrl = options.openUrl ?? this.options.openUrl;
-    const clientId = options.clientId || this.options.clientId;
-    const entry = await this.cacheManager.get(new CacheKey({clientId}));
+    const {openUrl = this.options.openUrl, clientId = this.options.clientId, ...logoutOptions} = options;
+
+    // assert(clientId, 'clientId is required');
+
+    const entry = await this.cacheManager.get(new CacheKey({clientId: clientId!}));
 
     let postLogoutUrl;
     if (entry?.accessToken) {
       try {
+        const url = this._buildLogoutUrl({clientId, ...logoutOptions});
         // logout from loopauth
         const res = await postLogout(
           {
-            url: this._logoutUrl({clientId}),
+            url,
             accessToken: entry.accessToken,
             refreshToken: entry.refreshToken,
           },
@@ -195,15 +199,14 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     }
     this.userCache.remove(CACHE_KEY_ID_TOKEN_SUFFIX);
 
-    postLogoutUrl = postLogoutUrl ?? options.logoutParams?.returnTo;
+    // postLogoutUrl = postLogoutUrl ?? options.logoutParams?.returnTo;
     if (postLogoutUrl) {
       // post logout
-      if (openUrl) {
+      if (typeof openUrl === 'function') {
         return openUrl(postLogoutUrl);
-      } else if (openUrl === false) {
-        return;
+      } else if (openUrl !== false) {
+        this.openUrlWithFallback(postLogoutUrl);
       }
-      throw new Error('You need to specify an openUrl function to use logout');
     }
   }
 
@@ -407,6 +410,10 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     return cache?.decodedToken?.user as TUser;
   }
 
+  protected openUrlWithFallback(url: string) {
+    throw new Error('You need to implement `defaultOpenUrl` to deal with url redirects without `openUrl`');
+  }
+
   protected initTransactionStorage() {
     return this.options.transactionStorage ?? new InMemoryStorage();
   }
@@ -540,19 +547,31 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     }
   }
 
-  private _url(path: string) {
+  private _buildUrl(path: string) {
     const authClient = encodeURIComponent(
       UrlSafer.encode(JSON.stringify(this.options.authClient || DEFAULT_AUTH_CLIENT)),
     );
     return `${this.domainUrl}${path}&authClient=${authClient}`;
   }
 
-  private _authorizeUrl(authorizeOptions: AuthorizeOptions) {
-    return this._url(`${this.loginPath}?${createQueryParams(authorizeOptions)}`);
+  private _buildAuthorizeUrl(authorizeOptions: AuthorizeOptions) {
+    return this._buildUrl(`${this.loginPath}?${createQueryParams(authorizeOptions)}`);
   }
 
-  private _logoutUrl(logoutOptions = {}) {
-    return this._url(`${this.logoutPath}?${createQueryParams(logoutOptions)}`);
+  private _buildLogoutUrl(options: LogoutUrlOptions) {
+    if (options.clientId !== null) {
+      options.clientId = options.clientId || this.options.clientId;
+    } else {
+      delete options.clientId;
+    }
+
+    const {...logoutOptions} = options.logoutParams || {};
+    return this._buildUrl(
+      `${this.logoutPath}?${createQueryParams({
+        clientId: options.clientId,
+        ...logoutOptions,
+      })}`,
+    );
   }
 
   private async _prepareAuthorizeUrl(
@@ -577,7 +596,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
       timestamp,
       client_challenge /*, redirect_uri*/,
     );
-    const url = this._authorizeUrl(params);
+    const url = this._buildAuthorizeUrl(params);
 
     return {
       url,

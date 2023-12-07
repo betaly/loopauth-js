@@ -108,10 +108,9 @@ export class CacheManager {
     await this.keyManifest?.add(cacheKey.toKey());
   }
 
-  async clear(clientId?: string): Promise<void> {
+  async clear(clientId?: string | null): Promise<void> {
     const keys = await this.getCacheKeys();
 
-    /* c8 ignore next */
     if (!keys) return;
 
     await keys

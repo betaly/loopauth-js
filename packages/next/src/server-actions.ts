@@ -1,5 +1,3 @@
-'use server';
-
 import {GetContextOptions, InteractionMode} from '@loopauth/node';
 import {NodeClient} from '@loopauth/node/edge';
 

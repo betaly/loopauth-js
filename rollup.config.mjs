@@ -1,15 +1,15 @@
-import typescript from "@rollup/plugin-typescript";
-import nodeResolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
-import summary from "rollup-plugin-summary";
-import replace from "@rollup/plugin-replace";
-import analyze from "rollup-plugin-analyzer";
+import typescript from '@rollup/plugin-typescript';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import summary from 'rollup-plugin-summary';
+import replace from '@rollup/plugin-replace';
 
-import pkg from "./package.json" assert { type: "json" };
+import pkg from './package.json' assert {type: 'json'};
 
 const plugins = [
   typescript({
-    tsconfig: "tsconfig.json"
+    tsconfig: "tsconfig.json",
+    outputToFilesystem: true,
   }),
   nodeResolve({
     mainFields: ["module", "main"]

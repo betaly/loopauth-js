@@ -23,6 +23,10 @@ export class WebAuthClient extends AuthClient {
     return super.handleRedirectCallback(url);
   }
 
+  protected openUrlWithFallback(url: string) {
+    window.location.assign(url);
+  }
+
   protected async runInLock<T>(key: string, fn: () => Promise<T>): Promise<T> {
     if (await retryPromise(() => lock.acquireLock(GET_TOKEN_SILENTLY_LOCK_KEY, 5000), 10)) {
       try {

@@ -1,18 +1,15 @@
+import * as crypto from 'crypto';
+
 import {CookieCache} from '../../cookie-cache';
 import {CookieStorage} from '../../cookie-storage';
 
 const ID_TOKEN = 'idToken';
 
-// const makeCache = () => ({
-//   save: jest.fn(),
-//   destroy: jest.fn(),
-// });
-
 const makeCache = async () =>
   CookieCache.create(
     {
       secret: 'secret',
-      crypto: crypto,
+      crypto: crypto as Crypto,
     },
     'cookie',
   );
