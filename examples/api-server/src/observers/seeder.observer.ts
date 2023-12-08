@@ -35,7 +35,7 @@ export class AuthApiSeeder implements LifeCycleObserver {
       clientSecret: 'next',
       clientType: ClientType.public,
       redirectUrl: 'http://localhost:3000/api/auth/sign-in-callback',
-      logoutRedirectUrl: 'http://localhost:3000',
+      postLogoutRedirectUris: ['http://localhost:3000'],
     });
     this.logger.debug(authClient, 'Auth client created');
   }

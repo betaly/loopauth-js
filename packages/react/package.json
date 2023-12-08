@@ -39,8 +39,8 @@
     "@nutol/build": "^0.2.17",
     "@nutol/eslint-config": "^0.2.12",
     "@testing-library/jest-dom": "^6.1.5",
-    "@types/jest": "^29.5.10",
-    "@types/node": "^20.10.3",
+    "@types/jest": "^29.5.11",
+    "@types/node": "^20.10.4",
     "@types/react": "^18.2.42",
     "@types/react-dom": "^18.2.17",
     "del-cli": "^5.1.0",
@@ -48,7 +48,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup": "^4.6.1"
+    "rollup": "^4.7.0"
   },
   "files": [
     "README.md",
