@@ -1,5 +1,12 @@
 
 
+# [0.6.0](https://github.com/betaly/loopauth-js/compare/0.5.0...0.6.0) (2023-12-08)
+
+
+### Features
+
+* add URL handling and update logout functionality (#main) ([50c40d8](https://github.com/betaly/loopauth-js/commit/50c40d827abbaf7b7ff4e5696d796cbafdcdf163))
+
 # [0.5.0](https://github.com/betaly/loopauth-js/compare/0.4.0...0.5.0) (2023-12-06)
 
 
