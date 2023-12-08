@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/betaly/loopauth-js/compare/@loopauth/client@0.3.5...@loopauth/client@0.4.0) (2023-12-08)
+
+
+### Features
+
+* add URL handling and update logout functionality (#main) ([50c40d8](https://github.com/betaly/loopauth-js/commit/50c40d827abbaf7b7ff4e5696d796cbafdcdf163))
+
+
+
+
+
 ## 0.3.5 (2023-12-06)
 
 **Note:** Version bump only for package @loopauth/client
