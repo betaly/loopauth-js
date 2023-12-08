@@ -5,5 +5,5 @@ import {loopauth} from '@/loopauth-edge';
 export const runtime = 'edge';
 
 export async function GET(request: NextRequest) {
-  return loopauth.handleUser()(request);
+  return loopauth.handleUser({withAccessToken: true})(request);
 }

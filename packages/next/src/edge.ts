@@ -80,8 +80,8 @@ export class NextClient extends NextBaseClient {
       return response;
     };
 
-  handleUser = (configs?: GetContextOptions) => async (request: NextRequest) => {
-    const context = await this.getLoopAuthContext(request, configs);
+  handleUser = (options?: GetContextOptions) => async (request: NextRequest) => {
+    const context = await this.getLoopAuthContext(request, options);
     return new Response(JSON.stringify(context), {
       status: 200,
       headers: {

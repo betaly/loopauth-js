@@ -6,7 +6,7 @@ import {getUser} from './api/auth/user/get-user';
 import Nav from './nav';
 
 const Page = async () => {
-  const {isAuthenticated, user} = await getUser();
+  const {isAuthenticated, user, accessToken} = await getUser();
   const {data: protectedResource} = await getProtectedResource();
 
   return (
@@ -41,7 +41,13 @@ const Page = async () => {
       {protectedResource && (
         <div className="mt-4 p-4 shadow-lg rounded bg-white">
           <h2 className="text-xl font-semibold mb-2">Protected Resource</h2>
-          <div>{protectedResource}</div>
+          <p>{protectedResource}</p>
+        </div>
+      )}
+      {accessToken && (
+        <div className="mt-4 p-4 shadow-lg rounded bg-white">
+          <h2 className="text-xl font-semibold mb-2">Access Token</h2>
+          <p className="break-words">{accessToken}</p>
         </div>
       )}
     </>
