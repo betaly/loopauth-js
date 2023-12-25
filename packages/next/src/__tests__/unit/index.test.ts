@@ -67,7 +67,7 @@ describe('next/client', () => {
     it('should redirect to LoopAuth sign in url with interactionMode and save session', async () => {
       const client = new NextClient(OPTIONS);
       await testApiHandler({
-        handler: client.handleSignIn('signUp'),
+        handler: client.handleSignIn({interactionMode: 'signUp'}),
         url: '/api/auth/sign-in',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
@@ -156,7 +156,7 @@ describe('next/client', () => {
         },
         test: async ({fetch}) => {
           await fetch({method: 'GET', redirect: 'manual'});
-          expect(client.handleSignIn).toHaveBeenCalledWith('signUp');
+          expect(client.handleSignIn).toHaveBeenCalledWith({interactionMode: 'signUp'});
         },
       });
     });

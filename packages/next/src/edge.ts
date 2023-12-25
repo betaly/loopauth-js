@@ -3,7 +3,7 @@ import {GetContextOptions, NodeClient} from '@loopauth/node';
 import {RequestCookies, ResponseCookies} from 'next/dist/compiled/@edge-runtime/cookies';
 import {NextRequest} from 'next/server';
 
-import {NextBaseClient, NextClientOptions} from './client';
+import {NextAppState, NextBaseClient, NextClientOptions} from './client';
 import {CookieCache} from './cookie-cache';
 
 export * from './types';
@@ -14,26 +14,31 @@ export class NextClient extends NextBaseClient {
     super(options, NodeClient);
   }
 
-  handleSignIn = (interactionMode?: InteractionMode) => async (request: Request) => {
-    const {nodeClient, headers, cache} = await this.createNodeClientFromEdgeRequest(request);
-    await nodeClient.loginWithRedirect({
-      /*redirectUri, */ authorizationParams: {
-        interaction_mode: interactionMode,
-      },
-    });
-    await cache?.save();
+  handleSignIn =
+    ({redirectUri, interactionMode}: {redirectUri?: string; interactionMode?: InteractionMode} = {}) =>
+    async (request: Request) => {
+      const {nodeClient, headers, cache} = await this.createNodeClientFromEdgeRequest(request);
+      await nodeClient.loginWithRedirect<NextAppState>({
+        /*redirectUri, */ authorizationParams: {
+          interaction_mode: interactionMode,
+        },
+        appState: {
+          redirectUri,
+        },
+      });
+      await cache?.save();
 
-    const response = new Response(null, {
-      headers,
-      status: 307,
-    });
+      const response = new Response(null, {
+        headers,
+        status: 307,
+      });
 
-    if (this.navigateUrl) {
-      response.headers.append('Location', this.navigateUrl);
-    }
+      if (this.navigateUrl) {
+        response.headers.append('Location', this.navigateUrl);
+      }
 
-    return response;
-  };
+      return response;
+    };
 
   handleSignOut =
     (redirectUri = this.options.baseUrl) =>
@@ -68,7 +73,10 @@ export class NextClient extends NextBaseClient {
           `${requestUrl.pathname}${requestUrl.search}${requestUrl.hash}`,
           this.options.baseUrl,
         );
-        await nodeClient.handleRedirectCallback(callbackUrl.toString());
+        const result = await nodeClient.handleRedirectCallback<NextAppState>(callbackUrl.toString());
+        if (result?.appState?.redirectUri) {
+          redirectTo = result?.appState.redirectUri;
+        }
         await cache?.save();
       }
 

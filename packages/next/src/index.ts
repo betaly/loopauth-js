@@ -5,7 +5,7 @@ import {IncomingMessage, ServerResponse} from 'http';
 import {GetServerSidePropsContext, GetServerSidePropsResult, type NextApiHandler} from 'next';
 import {type NextApiRequestCookies} from 'next/dist/server/api-utils/index';
 
-import {NextBaseClient, NextClientOptions} from './client';
+import {NextAppState, NextBaseClient, NextClientOptions} from './client';
 import {CookieCache} from './cookie-cache';
 
 export * from './types';
@@ -17,12 +17,15 @@ export class NextClient extends NextBaseClient {
   }
 
   handleSignIn =
-    (interactionMode?: InteractionMode): NextApiHandler =>
+    ({redirectUri, interactionMode}: {redirectUri?: string; interactionMode?: InteractionMode} = {}): NextApiHandler =>
     async (request, response) => {
       const {nodeClient, cache} = await this.createNodeClientFromNextApi(request, response);
-      await nodeClient.loginWithRedirect({
+      await nodeClient.loginWithRedirect<NextAppState>({
         authorizationParams: {
           interaction_mode: interactionMode,
+        },
+        appState: {
+          redirectUri,
         },
       });
       await cache?.save();
@@ -38,7 +41,10 @@ export class NextClient extends NextBaseClient {
       const {nodeClient, cache} = await this.createNodeClientFromNextApi(request, response);
 
       if (request.url) {
-        await nodeClient.handleRedirectCallback(`${this.options.baseUrl}${request.url}`);
+        const result = await nodeClient.handleRedirectCallback<NextAppState>(`${this.options.baseUrl}${request.url}`);
+        if (result?.appState?.redirectUri) {
+          redirectTo = result?.appState.redirectUri;
+        }
         await cache?.save();
         response.redirect(redirectTo);
       }
@@ -73,7 +79,7 @@ export class NextClient extends NextBaseClient {
       }
 
       if (action === 'sign-up') {
-        return this.handleSignIn('signUp')(request, response);
+        return this.handleSignIn({interactionMode: 'signUp'})(request, response);
       }
 
       if (action === 'sign-in-callback') {

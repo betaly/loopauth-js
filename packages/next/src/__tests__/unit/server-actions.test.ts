@@ -30,7 +30,7 @@ describe('next/client (server actions)', () => {
   describe('handleSignIn', () => {
     it('should get redirect url and new cookie', async () => {
       const client = new NextClient(OPTIONS);
-      const {url, newCookie} = await client.handleSignIn('{}', SIGN_IN_URL);
+      const {url, newCookie} = await client.handleSignIn('{}', {redirectUri: SIGN_IN_URL});
       expect(url).toEqual(SIGN_IN_URL);
       expect(newCookie).not.toBeUndefined();
     });

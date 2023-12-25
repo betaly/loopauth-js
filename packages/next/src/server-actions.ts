@@ -1,7 +1,7 @@
 import {GetContextOptions, InteractionMode} from '@loopauth/node';
 import {NodeClient} from '@loopauth/node/edge';
 
-import {NextBaseClient, NextClientOptions} from './client';
+import {NextAppState, NextBaseClient, NextClientOptions} from './client';
 import {CookieCache} from './cookie-cache';
 
 export * from './types';
@@ -22,13 +22,15 @@ export class NextClient extends NextBaseClient {
    */
   async handleSignIn(
     cookie: string,
-    redirectUri: string,
-    interactionMode?: InteractionMode,
+    {redirectUri, interactionMode}: {redirectUri?: string; interactionMode?: InteractionMode} = {},
   ): Promise<{url: string; newCookie?: string}> {
     const {nodeClient, cache} = await this.createNodeClientFromHeaders(cookie);
-    await nodeClient.loginWithRedirect({
+    await nodeClient.loginWithRedirect<NextAppState>({
       authorizationParams: {
         interaction_mode: interactionMode,
+      },
+      appState: {
+        redirectUri,
       },
     });
 
@@ -72,7 +74,7 @@ export class NextClient extends NextBaseClient {
   async handleSignInCallback(cookie: string, callbackUrl: string): Promise<string | undefined> {
     const {nodeClient, cache} = await this.createNodeClientFromHeaders(cookie);
 
-    await nodeClient.handleRedirectCallback(callbackUrl);
+    await nodeClient.handleRedirectCallback<NextAppState>(callbackUrl);
     return cache.values();
   }
 

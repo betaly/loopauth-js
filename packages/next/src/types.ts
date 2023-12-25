@@ -5,3 +5,7 @@ export interface NextClientOptions extends AuthClientOptions {
   cookieSecure: boolean;
   baseUrl: string;
 }
+
+export interface NextAppState {
+  redirectUri?: string;
+}

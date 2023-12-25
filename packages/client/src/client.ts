@@ -122,7 +122,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
    *
    * @param options
    */
-  public async loginWithRedirect(options: RedirectLoginOptions = {}) {
+  public async loginWithRedirect<AppState = any>(options: RedirectLoginOptions<AppState> = {}) {
     const {fragment, appState, ...urlOptions} = options;
     const openUrl = options.openUrl ?? this.options.openUrl;
 
@@ -579,7 +579,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     fallbackRedirectUri?: string,
   ): Promise<{
     url: string;
-    // redirect_uri?: string;
+    redirect_uri?: string;
     client_verifier: string;
     timestamp: number;
   }> {
@@ -587,8 +587,8 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     const timestamp = await this.nowProvider();
     const client_verifier = `${clientId}.${clientSecret ?? ''}.${timestamp}`;
     const client_challenge = stringToBase64UrlEncoded(client_verifier);
-    // const redirect_uri =
-    //   authorizationParams.redirect_uri || this.options.authorizationParams.redirect_uri || fallbackRedirectUri;
+    const redirect_uri =
+      authorizationParams.redirect_uri || this.options.authorizationParams.redirect_uri || fallbackRedirectUri;
 
     const params = getAuthorizeParams(
       this.options,
@@ -600,7 +600,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
 
     return {
       url,
-      // redirect_uri,
+      redirect_uri,
       client_verifier,
       timestamp,
     };
