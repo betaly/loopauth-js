@@ -1,5 +1,12 @@
 
 
+# [0.7.0](https://github.com/betaly/loopauth-js/compare/0.6.0...0.7.0) (2023-12-25)
+
+
+### Features
+
+* add redirectUri parameter for sign in ([d3723bb](https://github.com/betaly/loopauth-js/commit/d3723bb8a4937441752dd2c4b41a4c8d412aa157))
+
 # [0.6.0](https://github.com/betaly/loopauth-js/compare/0.5.0...0.6.0) (2023-12-08)
 
 
