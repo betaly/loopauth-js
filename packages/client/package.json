@@ -1,7 +1,7 @@
 {
   "name": "@loopauth/client",
   "description": "LoopAuth JavaScript client written in TypeScript",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "keywords": [],
   "type": "module",
   "main": "./dist/index.cjs",

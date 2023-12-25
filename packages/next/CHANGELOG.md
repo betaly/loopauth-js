@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.4.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.3.0...@loopauth/next@0.4.0) (2023-12-25)
+
+
+### Features
+
+* add redirectUri parameter for sign in ([d3723bb](https://github.com/betaly/loopauth-js/commit/d3723bb8a4937441752dd2c4b41a4c8d412aa157))
+
+
+
+
+
 # [0.3.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.2.0...@loopauth/next@0.3.0) (2023-12-08)
 
 
