@@ -3091,6 +3091,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@jil/bufio@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@jil/bufio@npm:0.2.0"
+  checksum: fa4130ec0badf581fb95fc4eb849daa8c1efd2137398b1853ac4e6398ff8d05eb345f2a85f589c5f9eaa89d210ffd71bc41e4b326239d415f567e923e161a8fa
+  languageName: node
+  linkType: hard
+
+"@jil/crypto@npm:^0.2.0":
+  version: 0.2.0
+  resolution: "@jil/crypto@npm:0.2.0"
+  dependencies:
+    "@jil/bufio": "npm:^0.2.0"
+    bcrypto: "npm:^5.5.2"
+  checksum: 7b5e939303fac1ebffa037ddb109e0aec47f2e31f5f47e2407129a587ff10b207cf151498c8263b102fa5aa2fbe9fa062ce143c429ba7aceb8aec51515cf680c
+  languageName: node
+  linkType: hard
+
 "@jridgewell/gen-mapping@npm:^0.3.0, @jridgewell/gen-mapping@npm:^0.3.2":
   version: 0.3.3
   resolution: "@jridgewell/gen-mapping@npm:0.3.3"
@@ -3331,6 +3348,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@loopauth/client@workspace:packages/client"
   dependencies:
+    "@jil/crypto": "npm:^0.2.0"
     "@nutol/build": "npm:^0.2.17"
     "@types/jest": "npm:^29.5.11"
     "@types/node": "npm:^20.10.4"
@@ -7883,6 +7901,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bcrypto@npm:^5.5.2":
+  version: 5.5.2
+  resolution: "bcrypto@npm:5.5.2"
+  dependencies:
+    bufio: "npm:~1.0.7"
+    loady: "npm:~0.0.5"
+    node-gyp: "npm:latest"
+  checksum: 296773ca3c4a496fb96a0f929b29b2e69de3e17a9524d7c0c41ffa4a4b2ed52cb54d980c86df84d23ab791ac960a6ffabc0702528d572163ee2c53a68c336c81
+  languageName: node
+  linkType: hard
+
 "before-after-hook@npm:^2.2.0":
   version: 2.2.3
   resolution: "before-after-hook@npm:2.2.3"
@@ -8208,6 +8237,13 @@ __metadata:
     base64-js: "npm:^1.3.1"
     ieee754: "npm:^1.2.1"
   checksum: b6bc68237ebf29bdacae48ce60e5e28fc53ae886301f2ad9496618efac49427ed79096750033e7eab1897a4f26ae374ace49106a5758f38fb70c78c9fda2c3b1
+  languageName: node
+  linkType: hard
+
+"bufio@npm:~1.0.7":
+  version: 1.0.7
+  resolution: "bufio@npm:1.0.7"
+  checksum: 281073ac13ddb8fbb761015263aef6af3f4085b12cd468a2d254be8665d956cbc07917a40433e8e0ee6de44a136fa9a2400737d0723f9b92e5c18263ab6abfaf
   languageName: node
   linkType: hard
 
@@ -16849,6 +16885,13 @@ __metadata:
   version: 3.2.1
   resolution: "loader-utils@npm:3.2.1"
   checksum: 177f5bb9b4c651263714fcd1b50682c1367b06893462529f510287775f9e461ca27a41bf364c8dffa9cd74ed9e8b1fdb30c03a526f6bcf12573bdc1a1644d086
+  languageName: node
+  linkType: hard
+
+"loady@npm:~0.0.5":
+  version: 0.0.5
+  resolution: "loady@npm:0.0.5"
+  checksum: 3cba2ffa8cef8a082b3d23f22c1269a339e9f268105c30229bb3fed9123bb79830c0c7f3fa79f52286e1de9303b87e4eb3236952a6ee3fcffa83e7c576f7a8f5
   languageName: node
   linkType: hard
 

@@ -3,7 +3,7 @@ import React from 'react';
 import {Link, useLocation} from 'react-router-dom';
 
 export function Nav() {
-  const {isAuthenticated, user, loginWithRedirect, logout} = useLoopAuth<{
+  const {isAuthenticated, user, loginWithRedirect, loginWithPopup, logout} = useLoopAuth<{
     name: string;
     username: string;
   }>();
@@ -43,9 +43,14 @@ export function Nav() {
             </button>
           </div>
         ) : (
-          <button className="btn btn-outline-success" id="login" onClick={() => loginWithRedirect()}>
-            login
-          </button>
+          <>
+            <button className="btn btn-outline-success" id="login-with-redirect" onClick={() => loginWithRedirect()}>
+              login (redirect)
+            </button>
+            <button className="btn btn-outline-success" id="login-with-popup" onClick={() => loginWithPopup()}>
+              login (popup)
+            </button>
+          </>
         )}
       </div>
     </nav>

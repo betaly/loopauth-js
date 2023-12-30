@@ -38,7 +38,7 @@ export interface AuthorizationParams {
   [key: string]: any;
 }
 
-interface OptionsWithAuthorizationParams {
+export interface OptionsWithAuthorizationParams {
   /**
    * URL parameters that will be sent back to the Authorization Server. This can be known parameters
    * defined by Auth or custom parameters that you define.
@@ -81,6 +81,12 @@ export interface AuthClientOptions extends OptionsWithAuthorizationParams {
    * The issuer to be used for validation of JWTs, optionally defaults to the domain above
    */
   issuer?: string;
+
+  /**
+   * A maximum number of seconds to wait before declaring background calls to /authorize as failed for timeout
+   * Defaults to 60s.
+   */
+  authorizeTimeoutInSeconds?: number;
 
   /**
    * Specify the timeout for HTTP calls using `fetch`. The default is 10 seconds.
@@ -344,10 +350,10 @@ export interface User {
  * @ignore
  */
 export interface AuthenticationResult {
-  // state: string;
   code?: string;
   error?: string;
   error_description?: string;
+  state?: string;
 }
 
 export const enum TokenGrantType {

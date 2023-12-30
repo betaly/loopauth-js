@@ -2,7 +2,7 @@ import {AuthError} from './errors';
 
 const CODE_RE = /[?&]code=[^&]+/;
 const ERROR_RE = /[?&]error=[^&]+/;
-const STATE_RE = /[?&]state=[^&]+/;
+// const STATE_RE = /[?&]state=[^&]+/;
 
 export const hasAuthParams = (searchParams = window.location.search): boolean =>
   // (CODE_RE.test(searchParams) || ERROR_RE.test(searchParams)) && STATE_RE.test(searchParams);
@@ -26,6 +26,6 @@ const normalizeErrorFn =
 
 export const loginError = normalizeErrorFn('Login failed');
 
-export const getTokenError = normalizeErrorFn('Get access token failed');
+export const tokenError = normalizeErrorFn('Get access token failed');
 
 export const switchTokenError = normalizeErrorFn('Switch token failed');

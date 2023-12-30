@@ -90,3 +90,15 @@ export const urlDecodeB64 = (input: string) => decodeB64(input.replace(/_/g, '/'
 export const stringToBase64UrlEncoded = (input: string) => {
   return urlEncodeB64(UrlSafer.encode(input));
 };
+
+export const getCrypto = () => {
+  return globalThis.crypto || require('node:crypto').webcrypto;
+};
+
+export const createRandomString = () => {
+  const charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_~.';
+  let answer = '';
+  const randomValues = Array.from(getCrypto().getRandomValues(new Uint8Array(43)));
+  randomValues.forEach(v => (answer += charset[v % charset.length]));
+  return answer;
+};

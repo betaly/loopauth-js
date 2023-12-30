@@ -1,7 +1,10 @@
 import {
   GetTokenSilentlyOptions,
+  GetTokenWithPopupOptions,
   InteractionMode,
   LogoutOptions,
+  PopupConfigOptions,
+  PopupLoginOptions,
   RedirectLoginResult,
   SwitchTokenOptions,
   User,
@@ -13,7 +16,7 @@ import React, {type ReactNode, useCallback, useEffect, useMemo, useReducer, useR
 import {ILoopAuthContext, LoopAuthContext, RedirectLoginOptions} from './auth-context';
 import {reducer} from './reducer';
 import {InitialAuthState} from './state';
-import {getTokenError, hasAuthParams, loginError, switchTokenError} from './utils';
+import {hasAuthParams, loginError, switchTokenError, tokenError} from './utils';
 
 /**
  * The state of the application before the user was redirected to the login page.
@@ -146,28 +149,25 @@ export const LoopAuthProvider = (options: LoopAuthProviderOptions) => {
     [client],
   );
 
-  // const loginWithPopup = useCallback(
-  //   async (
-  //     options?: PopupLoginOptions,
-  //     config?: PopupConfigOptions
-  //   ): Promise<void> => {
-  //     dispatch({ type: 'LOGIN_POPUP_STARTED' });
-  //     try {
-  //       await client.loginWithPopup(options, config);
-  //     } catch (error) {
-  //       dispatch({ type: 'ERROR', error: loginError(error) });
-  //       return;
-  //     }
-  //     const user = await client.getUser();
-  //     dispatch({ type: 'LOGIN_POPUP_COMPLETE', user });
-  //   },
-  //   [client]
-  // );
+  const loginWithPopup = useCallback(
+    async (opts?: PopupLoginOptions, config?: PopupConfigOptions): Promise<void> => {
+      dispatch({type: 'LOGIN_POPUP_STARTED'});
+      try {
+        await client.loginWithPopup(opts, config);
+      } catch (error) {
+        dispatch({type: 'ERROR', error: loginError(error)});
+        return;
+      }
+      const user = await client.getUser();
+      dispatch({type: 'LOGIN_POPUP_COMPLETE', user});
+    },
+    [client],
+  );
 
   const logout = useCallback(
     async (opts: LogoutOptions = {}): Promise<void> => {
       await client.logout(opts);
-      if (opts.openUrl || opts.openUrl === false) {
+      if (opts.openUrl != null) {
         dispatch({type: 'LOGOUT'});
       }
     },
@@ -181,7 +181,7 @@ export const LoopAuthProvider = (options: LoopAuthProviderOptions) => {
       try {
         token = await client.getTokenSilently(opts);
       } catch (e) {
-        throw getTokenError(e);
+        throw tokenError(e);
       } finally {
         dispatch({
           type: 'GET_ACCESS_TOKEN_COMPLETE',
@@ -212,33 +212,30 @@ export const LoopAuthProvider = (options: LoopAuthProviderOptions) => {
     [client],
   );
 
-  // const getAccessTokenWithPopup = useCallback(
-  //   async (
-  //     opts?: GetTokenWithPopupOptions,
-  //     config?: PopupConfigOptions
-  //   ): Promise<string | undefined> => {
-  //     let token;
-  //     try {
-  //       token = await client.getTokenWithPopup(opts, config);
-  //     } catch (error) {
-  //       throw tokenError(error);
-  //     } finally {
-  //       dispatch({
-  //         type: 'GET_ACCESS_TOKEN_COMPLETE',
-  //         user: await client.getUser(),
-  //       });
-  //     }
-  //     return token;
-  //   },
-  //   [client]
-  // );
+  const getAccessTokenWithPopup = useCallback(
+    async (opts?: GetTokenWithPopupOptions, config?: PopupConfigOptions): Promise<string | undefined> => {
+      let token;
+      try {
+        token = await client.getTokenWithPopup(opts, config);
+      } catch (error) {
+        throw tokenError(error);
+      } finally {
+        dispatch({
+          type: 'GET_ACCESS_TOKEN_COMPLETE',
+          user: await client.getUser(),
+        });
+      }
+      return token;
+    },
+    [client],
+  );
 
   const handleRedirectCallback = useCallback(
     async (url?: string): Promise<RedirectLoginResult> => {
       try {
         return await client.handleRedirectCallback(url);
       } catch (e) {
-        throw getTokenError(e);
+        throw tokenError(e);
       } finally {
         dispatch({
           type: 'HANDLE_REDIRECT_COMPLETE',
@@ -253,8 +250,10 @@ export const LoopAuthProvider = (options: LoopAuthProviderOptions) => {
     () => ({
       ...state,
       getAccessTokenSilently,
+      getAccessTokenWithPopup,
       switchToken,
       loginWithRedirect,
+      loginWithPopup,
       logout,
       handleRedirectCallback,
     }),

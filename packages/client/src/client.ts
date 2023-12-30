@@ -1,4 +1,4 @@
-import {MarkRequired} from 'ts-essentials';
+import {MarkOptional, MarkRequired} from 'ts-essentials';
 import UrlSafer from 'urlsafer';
 
 import {fetchToken, postLogout} from './api';
@@ -46,12 +46,14 @@ import {
 } from './types';
 import {
   createQueryParams,
+  createRandomString,
   getDomain,
   getTokenIssuer,
   parseAuthenticationResult,
   parseNumber,
   stringToBase64UrlEncoded,
 } from './utils';
+import encode = UrlSafer.encode;
 
 export abstract class AuthClient<Options extends AuthClientOptions = AuthClientOptions> {
   readonly domainUrl: string;
@@ -126,7 +128,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     const {fragment, appState, ...urlOptions} = options;
     const openUrl = options.openUrl ?? this.options.openUrl;
 
-    const {url, ...transaction} = await this._prepareAuthorizeUrl(urlOptions.authorizationParams || {});
+    const {url, ...transaction} = await this.prepareAuthorizeUrl(urlOptions.authorizationParams || {});
 
     await this.transactionManager.create({
       ...transaction,
@@ -237,7 +239,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
       throw new AuthenticationError(error, error_description || error);
     }
 
-    await this._requestToken({
+    await this.requestToken({
       code: code as string,
       clientId: this.options.clientId,
     });
@@ -366,7 +368,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     const timeout = typeof options.timeoutInSeconds === 'number' ? options.timeoutInSeconds * 1000 : null;
 
     try {
-      return await this._requestToken({
+      return await this.requestToken({
         tenantId: options.tenantId,
         refreshToken: cache?.refreshToken,
         ...(timeout && {timeout}),
@@ -452,6 +454,78 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     return fn();
   }
 
+  protected async prepareAuthorizeUrl(
+    authorizationParams: AuthorizationParams,
+    fallbackRedirectUri?: string,
+  ): Promise<{
+    url: string;
+    redirect_uri?: string;
+    client_verifier: string;
+    timestamp: number;
+    state: string;
+  }> {
+    const state = encode(createRandomString());
+    const {clientId, clientSecret} = this.options;
+    const timestamp = await this.nowProvider();
+    const client_verifier = `${clientId}.${clientSecret ?? ''}.${timestamp}`;
+    const client_challenge = stringToBase64UrlEncoded(client_verifier);
+    const redirect_uri =
+      authorizationParams.redirect_uri || this.options.authorizationParams.redirect_uri || fallbackRedirectUri;
+
+    const params = getAuthorizeParams(
+      this.options,
+      authorizationParams,
+      timestamp,
+      client_challenge /*, redirect_uri*/,
+    );
+    const url = this._buildAuthorizeUrl(params);
+
+    return {
+      url,
+      redirect_uri,
+      client_verifier,
+      timestamp,
+      state,
+    };
+  }
+
+  protected async requestToken(
+    options:
+      | MarkOptional<CodeRequestTokenOptions, 'clientId'>
+      | RefreshTokenRequestTokenOptions
+      | SwitchTokenRequestTokenOptions,
+  ) {
+    const authResult = await fetchToken(
+      {
+        baseUrl: this.domainUrl,
+        clientId: (options as CodeRequestTokenOptions).clientId ?? this.options.clientId,
+        authClient: this.options.authClient,
+        useFormData: this.options.useFormData,
+        timeout: this.httpTimeoutMs,
+        ...options,
+      },
+      this.fetcher,
+    );
+
+    const decodedToken = await this._verifyIdToken(authResult.accessToken);
+
+    await this._saveEntryInCache({
+      ...authResult,
+      idToken: authResult.accessToken,
+      decodedToken,
+      clientId: this.options.clientId,
+    });
+
+    // this.cookieStorage.save(this.isAuthenticatedCookieName, true, {
+    //   daysUntilExpire: this.sessionCheckExpiryDays,
+    //   cookieDomain: this.options.cookieDomain,
+    // });
+
+    // this._processOrgIdHint(decodedToken.claims.org_id);
+
+    return {...authResult, decodedToken};
+  }
+
   private async _getTokenSilently(
     options: GetTokenSilentlyOptions & {
       authorizationParams: AuthorizationParams;
@@ -532,7 +606,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     const timeout = typeof options.timeoutInSeconds === 'number' ? options.timeoutInSeconds * 1000 : null;
 
     try {
-      return await this._requestToken({
+      return await this.requestToken({
         ...options.authorizationParams,
         refreshToken: cache?.refreshToken,
         // redirect_uri,
@@ -572,72 +646,6 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
         ...logoutOptions,
       })}`,
     );
-  }
-
-  private async _prepareAuthorizeUrl(
-    authorizationParams: AuthorizationParams,
-    fallbackRedirectUri?: string,
-  ): Promise<{
-    url: string;
-    redirect_uri?: string;
-    client_verifier: string;
-    timestamp: number;
-  }> {
-    const {clientId, clientSecret} = this.options;
-    const timestamp = await this.nowProvider();
-    const client_verifier = `${clientId}.${clientSecret ?? ''}.${timestamp}`;
-    const client_challenge = stringToBase64UrlEncoded(client_verifier);
-    const redirect_uri =
-      authorizationParams.redirect_uri || this.options.authorizationParams.redirect_uri || fallbackRedirectUri;
-
-    const params = getAuthorizeParams(
-      this.options,
-      authorizationParams,
-      timestamp,
-      client_challenge /*, redirect_uri*/,
-    );
-    const url = this._buildAuthorizeUrl(params);
-
-    return {
-      url,
-      redirect_uri,
-      client_verifier,
-      timestamp,
-    };
-  }
-
-  private async _requestToken(
-    options: CodeRequestTokenOptions | RefreshTokenRequestTokenOptions | SwitchTokenRequestTokenOptions,
-  ) {
-    const authResult = await fetchToken(
-      {
-        baseUrl: this.domainUrl,
-        clientId: (options as CodeRequestTokenOptions).clientId ?? this.options.clientId,
-        authClient: this.options.authClient,
-        useFormData: this.options.useFormData,
-        timeout: this.httpTimeoutMs,
-        ...options,
-      },
-      this.fetcher,
-    );
-
-    const decodedToken = await this._verifyIdToken(authResult.accessToken);
-
-    await this._saveEntryInCache({
-      ...authResult,
-      idToken: authResult.accessToken,
-      decodedToken,
-      clientId: this.options.clientId,
-    });
-
-    // this.cookieStorage.save(this.isAuthenticatedCookieName, true, {
-    //   daysUntilExpire: this.sessionCheckExpiryDays,
-    //   cookieDomain: this.options.cookieDomain,
-    // });
-
-    // this._processOrgIdHint(decodedToken.claims.org_id);
-
-    return {...authResult, decodedToken};
   }
 
   private async _verifyIdToken(token: string) {

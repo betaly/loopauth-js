@@ -1,5 +1,5 @@
 import {AuthError} from '../../errors';
-import {getTokenError, hasAuthParams, loginError} from '../../utils';
+import {hasAuthParams, loginError, tokenError} from '../../utils';
 
 describe('utils hasAuthParams', () => {
   it.skip('should not recognise only the code param', async () => {
@@ -39,7 +39,7 @@ describe('utils error', () => {
       error_description: '__test_error_description__',
     };
     expect(() => {
-      throw getTokenError(error);
+      throw tokenError(error);
     }).toThrow(AuthError);
   });
 

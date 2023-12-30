@@ -3,6 +3,7 @@ import {GetContextOptions, NodeClient} from '@loopauth/node';
 import * as crypto from 'crypto';
 import {IncomingMessage, ServerResponse} from 'http';
 import {GetServerSidePropsContext, GetServerSidePropsResult, type NextApiHandler} from 'next';
+import {ResponseCookies} from 'next/dist/compiled/@edge-runtime/cookies';
 import {type NextApiRequestCookies} from 'next/dist/server/api-utils/index';
 
 import {NextAppState, NextBaseClient, NextClientOptions} from './client';
@@ -138,12 +139,21 @@ export class NextClient extends NextBaseClient {
       },
       request.cookies[cookieName] ?? '',
       value => {
-        const secure = this.options.cookieSecure;
-        const maxAge = 14 * 3600 * 24;
-        response.setHeader(
-          'Set-Cookie',
-          `${cookieName}=${value}; Path=/; Max-Age=${maxAge}; ${secure ? 'Secure; SameSite=None' : ''}`,
-        );
+        const headers = new Headers();
+        const responseCookies = new ResponseCookies(headers);
+        responseCookies.set(cookieName, value, {
+          maxAge: 14 * 3600 * 24,
+          secure: this.options.cookieSecure,
+          path: '/',
+        });
+        headers.forEach((val, name) => response.setHeader(name, val));
+
+        // const secure = this.options.cookieSecure;
+        // const maxAge = 14 * 3600 * 24;
+        // response.setHeader(
+        //   'Set-Cookie',
+        //   `${cookieName}=${value}; Path=/; Max-Age=${maxAge}; ${secure ? 'Secure; SameSite=None' : ''}`,
+        // );
       },
     );
     const nodeClient = this.createNodeClient(cache);

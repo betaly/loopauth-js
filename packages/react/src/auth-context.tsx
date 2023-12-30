@@ -1,8 +1,11 @@
 import {
   GetTokenSilentlyOptions,
   GetTokenSilentlyVerboseResponse,
+  GetTokenWithPopupOptions,
   InteractionMode,
   LogoutOptions as SPALogoutOptions,
+  PopupConfigOptions,
+  PopupLoginOptions,
   RedirectLoginOptions as SPARedirectLoginOptions,
   RedirectLoginResult,
   SwitchTokenOptions,
@@ -57,6 +60,23 @@ export interface ILoopAuthContext<TUser extends User = User> extends AuthState<T
    * parameters will be auto-generated. If the response is successful,
    * results will be valid according to their expiration times.
    */
+  getAccessTokenWithPopup: (
+    options?: GetTokenWithPopupOptions,
+    config?: PopupConfigOptions,
+  ) => Promise<string | undefined>;
+
+  /**
+   * ```js
+   * const token = await getTokenWithPopup(options, config);
+   * ```
+   *
+   * Get an access token interactively.
+   *
+   * Opens a popup with the `/authorize` URL using the parameters
+   * provided as arguments. Random and secure `state` and `nonce`
+   * parameters will be auto-generated. If the response is successful,
+   * results will be valid according to their expiration times.
+   */
   // getAccessTokenWithPopup: () => Promise<string | undefined>;
 
   /**
@@ -75,6 +95,22 @@ export interface ILoopAuthContext<TUser extends User = User> extends AuthState<T
    * parameters will be auto-generated.
    */
   loginWithRedirect: (options?: RedirectLoginOptions<AppState> | InteractionMode) => Promise<void>;
+
+  /**
+   * ```js
+   * await loginWithPopup(options, config);
+   * ```
+   *
+   * Opens a popup with the `/authorize` URL using the parameters
+   * provided as arguments. Random and secure `state` and `nonce`
+   * parameters will be auto-generated. If the response is successful,
+   * results will be valid according to their expiration times.
+   *
+   * IMPORTANT: This method has to be called from an event handler
+   * that was started by the user like a button click, for example,
+   * otherwise the popup will be blocked in most browsers.
+   */
+  loginWithPopup: (options?: PopupLoginOptions, config?: PopupConfigOptions) => Promise<void>;
 
   /**
    * ```js
@@ -108,8 +144,10 @@ const stub = (): never => {
 export const InitialContext: ILoopAuthContext = {
   ...InitialAuthState,
   getAccessTokenSilently: stub,
+  getAccessTokenWithPopup: stub,
   switchToken: stub,
   loginWithRedirect: stub,
+  loginWithPopup: stub,
   logout: stub,
   handleRedirectCallback: stub,
 };
