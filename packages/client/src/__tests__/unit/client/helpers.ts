@@ -128,11 +128,11 @@ const processDefaultLoginWithRedirectOptions = (config: any) => {
   };
   const token = {
     ...defaultTokenResponseOptions,
-    ...(config.token || {}),
+    ...(config.token ?? {}),
   };
   const authorize = {
     ...defaultAuthorizeResponseOptions,
-    ...(config.authorize || {}),
+    ...(config.authorize ?? {}),
   };
 
   return {
@@ -234,7 +234,7 @@ const processDefaultTokenOptions = (config: any) => {
   };
   const token = {
     ...defaultTokenResponseOptions,
-    ...(config.token || {}),
+    ...(config.token ?? {}),
   };
 
   return {

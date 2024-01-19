@@ -27,9 +27,9 @@ export interface PopupConfigOptions {
 
 export interface GetTokenWithPopupOptions extends PopupLoginOptions {
   /**
-   * When `off`, ignores the cache and always sends a request to Auth0.
-   * When `cache-only`, only reads from the cache and never sends a request to Auth0.
-   * Defaults to `on`, where it both reads from the cache and sends a request to Auth0 as needed.
+   * When `off`, ignores the cache and always sends a request to Auth.
+   * When `cache-only`, only reads from the cache and never sends a request to Auth.
+   * Defaults to `on`, where it both reads from the cache and sends a request to Auth as needed.
    */
   cacheMode?: 'on' | 'off' | 'cache-only';
 }

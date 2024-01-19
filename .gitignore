@@ -33,3 +33,4 @@ build
 # ignore dist conetents but dist directory for `flat` modules
 packages/*/dist/*
 examples/*/dist/*
+*.ts_

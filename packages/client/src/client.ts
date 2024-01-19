@@ -101,7 +101,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     this.httpTimeoutMs = options.httpTimeoutInSeconds ? options.httpTimeoutInSeconds * 1000 : DEFAULT_FETCH_TIMEOUT_MS;
 
     this.fetcher = this.options.fetcher ?? (fetch as Fetcher);
-    this.nowProvider = this.options.nowProvider || DEFAULT_NOW_PROVIDER;
+    this.nowProvider = this.options.nowProvider ?? DEFAULT_NOW_PROVIDER;
 
     this.transactionManager = new TransactionManager(this.initTransactionStorage(), this.options.clientId);
 
@@ -470,7 +470,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     const client_verifier = `${clientId}.${clientSecret ?? ''}.${timestamp}`;
     const client_challenge = stringToBase64UrlEncoded(client_verifier);
     const redirect_uri =
-      authorizationParams.redirect_uri || this.options.authorizationParams.redirect_uri || fallbackRedirectUri;
+      authorizationParams.redirect_uri ?? this.options.authorizationParams.redirect_uri ?? fallbackRedirectUri;
 
     const params = getAuthorizeParams(
       this.options,

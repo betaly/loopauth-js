@@ -56,8 +56,7 @@ describe('next/client', () => {
         url: '/api/auth/sign-in',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
-          const headers = response.headers as Map<string, string>;
-          expect(headers.get('location')).toEqual(SIGN_IN_URL);
+          expect(response.headers.get('location')).toEqual(SIGN_IN_URL);
         },
       });
       expect(mockCache.save).toHaveBeenCalled();
@@ -71,8 +70,7 @@ describe('next/client', () => {
         url: '/api/auth/sign-in',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
-          const headers = response.headers as Map<string, string>;
-          expect(headers.get('location')).toEqual(`${SIGN_IN_URL}?interactionMode=signUp`);
+          expect(response.headers.get('location')).toEqual(`${SIGN_IN_URL}?interactionMode=signUp`);
         },
       });
       expect(mockCache.save).toHaveBeenCalled();
@@ -88,8 +86,7 @@ describe('next/client', () => {
         url: '/api/auth/sign-in-callback',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
-          const headers = response.headers as Map<string, string>;
-          expect(headers.get('location')).toEqual(`${OPTIONS.baseUrl}/`);
+          expect(response.headers.get('location')).toEqual(`${OPTIONS.baseUrl}/`);
         },
       });
       expect(mockNodeClient.handleRedirectCallback).toHaveBeenCalled();
@@ -121,8 +118,7 @@ describe('next/client', () => {
         url: '/api/auth/sign-out',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
-          const headers = response.headers as Map<string, string>;
-          expect(headers.get('location')).toEqual(`${OPTIONS.baseUrl}/`);
+          expect(response.headers.get('location')).toEqual(`${OPTIONS.baseUrl}/`);
         },
       });
       expect(mockCache.save).toHaveBeenCalled();

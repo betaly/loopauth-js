@@ -1,7 +1,7 @@
 module.exports = {
   extends: ['@nutol/eslint-config/eslintrc.js', 'plugin:prettier/recommended'],
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'simple-import-sort', 'react', '@typescript-eslint', 'prettier'],
+  plugins: ['import', 'simple-import-sort', '@typescript-eslint', 'prettier'],
   overrides: [
     {
       files: ['**/*.ts', '**/*.tsx'],
@@ -31,9 +31,11 @@ module.exports = {
         'import/newline-after-import': 'error',
         'import/no-duplicates': 'error',
         'prettier/prettier': 'off',
+        'no-unused-expressions': 'off',
         '@typescript-eslint/naming-convention': 'off',
-        '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/no-unused-vars': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-misused-promises': [
           'error',
           {

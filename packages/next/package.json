@@ -29,11 +29,6 @@
       "require": "./dist/edge.cjs",
       "import": "./dist/edge.js",
       "types": "./dist/edge.d.ts"
-    },
-    "./server-actions": {
-      "require": "./dist/server-actions.cjs",
-      "import": "./dist/server-actions.js",
-      "types": "./dist/server-actions.d.ts"
     }
   },
   "engines": {
