@@ -456,6 +456,7 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
 
   protected async prepareAuthorizeUrl(
     authorizationParams: AuthorizationParams,
+    authorizeOptions?: Partial<AuthorizeOptions>,
     fallbackRedirectUri?: string,
   ): Promise<{
     url: string;
@@ -475,8 +476,11 @@ export abstract class AuthClient<Options extends AuthClientOptions = AuthClientO
     const params = getAuthorizeParams(
       this.options,
       authorizationParams,
+      state,
       timestamp,
-      client_challenge /*, redirect_uri*/,
+      client_challenge,
+      redirect_uri,
+      authorizeOptions?.response_mode,
     );
     const url = this._buildAuthorizeUrl(params);
 

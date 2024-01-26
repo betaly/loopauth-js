@@ -70,7 +70,7 @@ export class WebAuthClient extends AuthClient<WebAuthClientOptions> {
 
     const params = await this.prepareAuthorizeUrl(
       options.authorizationParams || {},
-      // {response_mode: 'web_message'},
+      {response_mode: 'web_message'},
       window.location.origin,
     );
 

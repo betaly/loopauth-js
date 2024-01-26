@@ -23,7 +23,7 @@ function App() {
   return (
     <>
       <Nav />
-      {error && <Error message={error.message} />}
+      {error && <Error message={(error as any)?.error + ': ' + error?.message} />}
       <Routes>
         <Route path="/" />
         <Route path="/me" element={<ProtectedMe />} />

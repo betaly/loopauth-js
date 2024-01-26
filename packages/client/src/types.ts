@@ -151,6 +151,8 @@ export type InteractionMode = 'signIn' | 'signUp';
  * @ignore
  */
 export interface AuthorizeOptions extends AuthorizationParams {
+  response_type: string;
+  response_mode: string;
   redirect_uri?: string;
   client_id: string;
   ts: number;

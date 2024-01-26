@@ -41,6 +41,9 @@ describe('AuthClient', () => {
         redirect_uri: TEST_REDIRECT_URI,
         client_challenge: TEST_CLIENT_CHALLENGE,
         client_challenge_method: 'S256',
+        response_mode: 'query',
+        response_type: 'code',
+        state: expect.any(String),
         ts: expect.any(String),
       });
 
@@ -76,6 +79,9 @@ describe('AuthClient', () => {
         redirect_uri: TEST_REDIRECT_URI,
         client_challenge: TEST_CLIENT_CHALLENGE,
         client_challenge_method: 'S256',
+        response_mode: 'query',
+        response_type: 'code',
+        state: expect.any(String),
         ts: expect.any(String),
       });
 
@@ -321,6 +327,9 @@ describe('AuthClient', () => {
         redirect_uri: TEST_REDIRECT_URI,
         client_challenge: TEST_CLIENT_CHALLENGE,
         client_challenge_method: 'S256',
+        response_mode: 'query',
+        response_type: 'code',
+        state: expect.any(String),
         ts: expect.any(String),
       });
     });
