@@ -52,7 +52,7 @@ describe('next/client', () => {
     it('should redirect to LoopAuth sign in url and save session', async () => {
       const client = new NextClient(OPTIONS);
       await testApiHandler({
-        handler: client.handleSignIn(),
+        pagesHandler: client.handleSignIn(),
         url: '/api/auth/sign-in',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
@@ -66,7 +66,7 @@ describe('next/client', () => {
     it('should redirect to LoopAuth sign in url with interactionMode and save session', async () => {
       const client = new NextClient(OPTIONS);
       await testApiHandler({
-        handler: client.handleSignIn({interactionMode: 'signUp'}),
+        pagesHandler: client.handleSignIn({interactionMode: 'signUp'}),
         url: '/api/auth/sign-in',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
@@ -82,7 +82,7 @@ describe('next/client', () => {
     it('should call client.handleSignInCallback and redirect to home', async () => {
       const client = new NextClient(OPTIONS);
       await testApiHandler({
-        handler: client.handleSignInCallback(),
+        pagesHandler: client.handleSignInCallback(),
         url: '/api/auth/sign-in-callback',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
@@ -98,7 +98,7 @@ describe('next/client', () => {
     it('should assign `user` to `request`', async () => {
       const client = new NextClient(OPTIONS);
       await testApiHandler({
-        handler: client.withLoopAuthApiRoute((request, response) => {
+        pagesHandler: client.withLoopAuthApiRoute((request, response) => {
           expect(request.user).toBeDefined();
           response.end();
         }),
@@ -114,7 +114,7 @@ describe('next/client', () => {
     it('should redirect to LoopAuth sign out url', async () => {
       const client = new NextClient(OPTIONS);
       await testApiHandler({
-        handler: client.handleSignOut(),
+        pagesHandler: client.handleSignOut(),
         url: '/api/auth/sign-out',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
@@ -131,7 +131,7 @@ describe('next/client', () => {
       const client = new NextClient(OPTIONS);
       jest.spyOn(client, 'handleSignIn').mockImplementation(() => mockResponse);
       await testApiHandler({
-        handler: client.handleAuthRoutes(),
+        pagesHandler: client.handleAuthRoutes(),
         paramsPatcher: parameters => {
           parameters.action = 'sign-in';
         },
@@ -146,7 +146,7 @@ describe('next/client', () => {
       const client = new NextClient(OPTIONS);
       jest.spyOn(client, 'handleSignIn').mockImplementation(() => mockResponse);
       await testApiHandler({
-        handler: client.handleAuthRoutes(),
+        pagesHandler: client.handleAuthRoutes(),
         paramsPatcher: parameters => {
           parameters.action = 'sign-up';
         },
@@ -161,7 +161,7 @@ describe('next/client', () => {
       const client = new NextClient(OPTIONS);
       jest.spyOn(client, 'handleSignInCallback').mockImplementation(() => mockResponse);
       await testApiHandler({
-        handler: client.handleAuthRoutes(),
+        pagesHandler: client.handleAuthRoutes(),
         paramsPatcher: parameters => {
           parameters.action = 'sign-in-callback';
         },
@@ -176,7 +176,7 @@ describe('next/client', () => {
       const client = new NextClient(OPTIONS);
       jest.spyOn(client, 'handleSignOut').mockImplementation(() => mockResponse);
       await testApiHandler({
-        handler: client.handleAuthRoutes(),
+        pagesHandler: client.handleAuthRoutes(),
         paramsPatcher: parameters => {
           parameters.action = 'sign-out';
         },
@@ -191,7 +191,7 @@ describe('next/client', () => {
       const client = new NextClient(OPTIONS);
       jest.spyOn(client, 'handleUser').mockImplementation(() => mockResponse);
       await testApiHandler({
-        handler: client.handleAuthRoutes(),
+        pagesHandler: client.handleAuthRoutes(),
         paramsPatcher: parameters => {
           parameters.action = 'user';
         },
