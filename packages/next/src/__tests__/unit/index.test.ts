@@ -86,7 +86,7 @@ describe('next/client', () => {
         url: '/api/auth/sign-in-callback',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
-          expect(response.headers.get('location')).toEqual(`${OPTIONS.baseUrl}/`);
+          expect(response.headers.get('location')).toEqual(`${OPTIONS.baseUrl}`);
         },
       });
       expect(mockNodeClient.handleRedirectCallback).toHaveBeenCalled();
@@ -118,7 +118,7 @@ describe('next/client', () => {
         url: '/api/auth/sign-out',
         test: async ({fetch}) => {
           const response = await fetch({method: 'GET', redirect: 'manual'});
-          expect(response.headers.get('location')).toEqual(`${OPTIONS.baseUrl}/`);
+          expect(response.headers.get('location')).toEqual(`${OPTIONS.baseUrl}`);
         },
       });
       expect(mockCache.save).toHaveBeenCalled();
