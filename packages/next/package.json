@@ -1,7 +1,7 @@
 {
   "name": "@loopauth/next",
   "description": "",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "keywords": [],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

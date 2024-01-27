@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.5.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.4.0...@loopauth/next@0.5.0) (2024-01-27)
+
+
+### Features
+
+* chunk cookies ([34aaf11](https://github.com/betaly/loopauth-js/commit/34aaf1199773dd964df3df1f96fd30a21c2c9ac5))
+* draft new nextjs module ([0531bff](https://github.com/betaly/loopauth-js/commit/0531bff5d2aba77a7df0a3ed4b268d3adadfcb25))
+
+
+
+
+
 # [0.4.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.3.0...@loopauth/next@0.4.0) (2023-12-25)
 
 
