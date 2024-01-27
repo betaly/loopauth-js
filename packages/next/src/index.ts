@@ -6,6 +6,7 @@ import {GetServerSidePropsContext, GetServerSidePropsResult, type NextApiHandler
 import {type NextApiRequestCookies} from 'next/dist/server/api-utils';
 
 import {NextAppState, NextBaseClient, NextClientOptions} from './client';
+import {chunkCookieToServerResponse, SessionStore} from './cookie';
 import {CookieCache} from './cookie-cache';
 
 export * from './types';
@@ -131,19 +132,29 @@ export class NextClient extends NextBaseClient {
     response: ServerResponse,
   ) {
     const cookieName = `loopauth:${this.options.clientId}`;
+    const requestSessionStore = new SessionStore(cookieName, request.cookies);
     const cache = await CookieCache.create(
       {
         secret: this.options.cookieSecret,
         crypto: crypto as Crypto,
       },
-      request.cookies[cookieName] ?? '',
+      // request.cookies[cookieName] ?? '',
+      requestSessionStore.value,
       value => {
-        const secure = this.options.cookieSecure;
-        const maxAge = 14 * 3600 * 24;
-        response.setHeader(
-          'Set-Cookie',
-          `${cookieName}=${value}; Path=/; Max-Age=${maxAge}; ${secure ? 'Secure; SameSite=None' : ''}`,
+        chunkCookieToServerResponse(
+          cookieName,
+          value,
+          {
+            maxAge: 14 * 3600 * 24,
+            secure: this.options.cookieSecure,
+          },
+          response,
+          request.cookies,
         );
+        // response.setHeader(
+        //   'Set-Cookie',
+        //   `${cookieName}=${value}; Path=/; Max-Age=${maxAge}; ${secure ? 'Secure; SameSite=None' : ''}`,
+        // );
       },
     );
     const nodeClient = this.createNodeClient(cache);

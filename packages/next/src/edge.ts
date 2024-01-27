@@ -4,6 +4,7 @@ import {RequestCookies, ResponseCookies} from 'next/dist/compiled/@edge-runtime/
 import {NextRequest} from 'next/server';
 
 import {NextAppState, NextBaseClient, NextClientOptions} from './client';
+import {chunkCookieToResponseCookies, SessionStore} from './cookie';
 import {CookieCache} from './cookie-cache';
 
 export * from './types';
@@ -105,7 +106,9 @@ export class NextClient extends NextBaseClient {
 
   protected async createNodeClientFromEdgeRequest(request: Request) {
     const cookieName = `loopauth:${this.options.clientId}`;
-    const cookies = new RequestCookies(request.headers);
+    const requestCookies = new RequestCookies(request.headers);
+    const requestSessionStore = new SessionStore(cookieName, requestCookies);
+
     const headers = new Headers();
     const responseCookies = new ResponseCookies(headers);
     const cache = await CookieCache.create(
@@ -113,12 +116,18 @@ export class NextClient extends NextBaseClient {
         secret: this.options.cookieSecret,
         crypto,
       },
-      cookies.get(cookieName)?.value ?? '',
+      requestSessionStore.value,
       value => {
-        responseCookies.set(cookieName, value, {
-          maxAge: 14 * 3600 * 24,
-          secure: this.options.cookieSecure,
-        });
+        chunkCookieToResponseCookies(
+          cookieName,
+          value,
+          {
+            maxAge: 14 * 3600 * 24,
+            secure: this.options.cookieSecure,
+          },
+          responseCookies,
+          requestCookies,
+        );
       },
     );
     const nodeClient = super.createNodeClient(cache);
