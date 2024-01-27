@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json.schemastore.org/tsconfig",
+  "extends": "@nutol/ts-config/tsconfig.common.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "lib": ["esnext", "dom"],
+    "outDir": "dist",
+    "rootDir": "src",
+    "jsx": "react",
+    "types": ["jest", "node", "@testing-library/jest-dom"]
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src"
+  ]
+}
