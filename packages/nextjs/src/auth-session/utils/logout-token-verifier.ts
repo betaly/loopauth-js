@@ -1,4 +1,4 @@
-import {createRemoteJWKSet, FlattenedJWSInput, GetKeyFunction, JWSHeaderParameters, JWTPayload,jwtVerify} from 'jose';
+import {createRemoteJWKSet, FlattenedJWSInput, GetKeyFunction, JWSHeaderParameters, JWTPayload, jwtVerify} from 'jose';
 
 import {IssuerMetadata} from '../client/abstract-client';
 import {Config} from '../config';
