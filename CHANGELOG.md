@@ -1,5 +1,13 @@
 
 
+# [0.8.0](https://github.com/betaly/loopauth-js/compare/0.7.0...0.8.0) (2024-01-27)
+
+
+### Features
+
+* chunk cookies ([34aaf11](https://github.com/betaly/loopauth-js/commit/34aaf1199773dd964df3df1f96fd30a21c2c9ac5))
+* draft new nextjs module ([0531bff](https://github.com/betaly/loopauth-js/commit/0531bff5d2aba77a7df0a3ed4b268d3adadfcb25))
+
 # [0.7.0](https://github.com/betaly/loopauth-js/compare/0.6.0...0.7.0) (2023-12-25)
 
 
