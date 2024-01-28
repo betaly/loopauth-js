@@ -44,7 +44,11 @@ export function Nav() {
           </div>
         ) : (
           <>
-            <button className="btn btn-outline-success" id="login-with-redirect" onClick={() => loginWithRedirect()}>
+            <button
+              className="btn btn-outline-success m-1"
+              id="login-with-redirect"
+              onClick={() => loginWithRedirect()}
+            >
               login (redirect)
             </button>
             <button className="btn btn-outline-success" id="login-with-popup" onClick={() => loginWithPopup()}>
