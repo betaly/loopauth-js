@@ -1,7 +1,10 @@
 import UrlSafer from 'urlsafer';
 
 import {DEFAULT_AUTHORIZE_TIMEOUT_IN_SECONDS} from './constants';
+import {getCrypto} from './crypto';
 import {AuthenticationResult} from './types';
+
+export * from './crypto';
 
 export const runIframe = (
   authorizeUrl: string,
@@ -89,10 +92,6 @@ export const urlDecodeB64 = (input: string) => decodeB64(input.replace(/_/g, '/'
 
 export const stringToBase64UrlEncoded = (input: string) => {
   return urlEncodeB64(UrlSafer.encode(input));
-};
-
-export const getCrypto = () => {
-  return globalThis.crypto || require('node:crypto').webcrypto;
 };
 
 export const createRandomString = () => {

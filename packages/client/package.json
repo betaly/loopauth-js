@@ -54,5 +54,8 @@
     "dist",
     "src",
     "!*/__tests__"
-  ]
+  ],
+  "browser": {
+    "./dist/crypto": "./dist/crypto.browser"
+  }
 }
