@@ -1,5 +1,13 @@
 
 
+# [0.9.0](https://github.com/betaly/loopauth-js/compare/0.8.0...0.9.0) (2024-01-30)
+
+
+### Features
+
+* **cookie handling:** Update cookie import paths and add chunkSize option ([c5daa31](https://github.com/betaly/loopauth-js/commit/c5daa31421769e33103324896faec81a9d9acdbf))
+* **Nav.tsx:** update button styling for login actions ([58079ae](https://github.com/betaly/loopauth-js/commit/58079ae6669df3ecf7201e0a31ccf7daf97c5de1))
+
 # [0.8.0](https://github.com/betaly/loopauth-js/compare/0.7.0...0.8.0) (2024-01-27)
 
 
