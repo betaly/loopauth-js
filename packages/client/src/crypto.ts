@@ -1,5 +1,5 @@
 import {type webcrypto} from 'crypto';
 
 export const getCrypto = (): webcrypto.Crypto => {
-  return require('node:crypto').webcrypto;
+  return (globalThis.crypto as webcrypto.Crypto) || require('crypto').webcrypto;
 };
