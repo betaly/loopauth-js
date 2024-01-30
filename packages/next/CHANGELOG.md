@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.6.0...@loopauth/next@0.7.0) (2024-01-30)
+
+
+### Features
+
+* **cookie.ts:** replace private field declarations with private keywords #main ([6955d82](https://github.com/betaly/loopauth-js/commit/6955d82824fe039cbc6a7dc9d335df42d74e85e2))
+
+
+
+
+
 # [0.6.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.5.0...@loopauth/next@0.6.0) (2024-01-30)
 
 
