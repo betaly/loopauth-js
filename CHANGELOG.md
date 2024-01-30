@@ -1,5 +1,12 @@
 
 
+# [0.10.0](https://github.com/betaly/loopauth-js/compare/0.9.0...0.10.0) (2024-01-30)
+
+
+### Features
+
+* **cookie.ts:** replace private field declarations with private keywords #main ([6955d82](https://github.com/betaly/loopauth-js/commit/6955d82824fe039cbc6a7dc9d335df42d74e85e2))
+
 # [0.9.0](https://github.com/betaly/loopauth-js/compare/0.8.0...0.9.0) (2024-01-30)
 
 
