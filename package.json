@@ -1,6 +1,6 @@
 {
   "name": "loopauth-js-monorepo",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "An JS SDK for using LoopAuth.",
   "private": true,
   "engines": {

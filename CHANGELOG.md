@@ -1,5 +1,12 @@
 
 
+# [0.12.0](https://github.com/betaly/loopauth-js/compare/0.11.0...0.12.0) (2024-01-30)
+
+
+### Features
+
+* **crypto:** update getCrypto function and package.json #main ([a3944b7](https://github.com/betaly/loopauth-js/commit/a3944b7f1feb7fcf43b2e0e1f26c90551645c5c4))
+
 # [0.11.0](https://github.com/betaly/loopauth-js/compare/0.10.0...0.11.0) (2024-01-30)
 
 
