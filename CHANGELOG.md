@@ -1,5 +1,12 @@
 
 
+# [0.11.0](https://github.com/betaly/loopauth-js/compare/0.10.0...0.11.0) (2024-01-30)
+
+
+### Features
+
+* Separate crypto functions for browser and node environments ([326ac51](https://github.com/betaly/loopauth-js/commit/326ac516e0b8f881d098e501391dcd42fefc2d67))
+
 # [0.10.0](https://github.com/betaly/loopauth-js/compare/0.9.0...0.10.0) (2024-01-30)
 
 
