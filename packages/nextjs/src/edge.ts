@@ -1,6 +1,6 @@
+import {RequestCookies, ResponseCookies} from '@edge-runtime/cookies';
 import {InteractionMode} from '@loopauth/client';
 import {GetContextOptions, NodeClient} from '@loopauth/node';
-import {RequestCookies, ResponseCookies} from 'next/dist/compiled/@edge-runtime/cookies';
 import {NextRequest} from 'next/server';
 
 import {NextAppState, NextBaseClient, NextClientOptions} from './client';

@@ -1,6 +1,6 @@
+import {RequestCookies, ResponseCookies} from '@edge-runtime/cookies';
 import type {CookieSerializeOptions} from 'cookie';
 import {ServerResponse} from 'http';
-import {RequestCookies, ResponseCookies} from 'next/dist/compiled/@edge-runtime/cookies';
 import type {NextApiRequestCookies} from 'next/dist/server/api-utils';
 
 import {logger as defaultLogger, LoggerInstance} from './logger';
@@ -110,6 +110,7 @@ export class SessionStore {
 
   /** Given a cookie, return a list of cookies, chunked to fit the allowed cookie size. */
   #chunk(cookie: Cookie, chunkSize = CHUNK_SIZE): Cookie[] {
+    chunkSize = chunkSize || CHUNK_SIZE;
     const chunkCount = Math.ceil(cookie.value.length / chunkSize);
 
     if (chunkCount === 1) {

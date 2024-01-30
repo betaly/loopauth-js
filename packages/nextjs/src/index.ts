@@ -1,9 +1,9 @@
+import {ResponseCookies} from '@edge-runtime/cookies';
 import {InteractionMode} from '@loopauth/client';
 import {GetContextOptions, NodeClient} from '@loopauth/node';
 import * as crypto from 'crypto';
 import {IncomingMessage, ServerResponse} from 'http';
 import {GetServerSidePropsContext, GetServerSidePropsResult, type NextApiHandler} from 'next';
-import {ResponseCookies} from 'next/dist/compiled/@edge-runtime/cookies';
 import {NextApiRequestCookies} from 'next/dist/server/api-utils/index';
 
 import {NextAppState, NextBaseClient, NextClientOptions} from './client';
