@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/betaly/loopauth-js/compare/@loopauth/client@0.5.1...@loopauth/client@0.6.0) (2024-01-30)
+
+
+### Features
+
+* Separate crypto functions for browser and node environments ([326ac51](https://github.com/betaly/loopauth-js/commit/326ac516e0b8f881d098e501391dcd42fefc2d67))
+
+
+
+
+
 ## [0.5.1](https://github.com/betaly/loopauth-js/compare/@loopauth/client@0.5.0...@loopauth/client@0.5.1) (2024-01-27)
 
 **Note:** Version bump only for package @loopauth/client

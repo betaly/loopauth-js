@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.4.3](https://github.com/betaly/loopauth-js/compare/@loopauth/browser@0.4.2...@loopauth/browser@0.4.3) (2024-01-30)
+
+**Note:** Version bump only for package @loopauth/browser
+
+
+
+
+
 ## [0.4.2](https://github.com/betaly/loopauth-js/compare/@loopauth/browser@0.4.1...@loopauth/browser@0.4.2) (2024-01-27)
 
 **Note:** Version bump only for package @loopauth/browser
