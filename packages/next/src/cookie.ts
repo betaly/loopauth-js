@@ -26,10 +26,10 @@ export interface ChunkOptions extends Partial<Cookie['options']> {
 }
 
 export class SessionStore {
-  #name: string;
-  #chunks: Chunks = {};
-  #options: CookieSerializeOptions;
-  #logger: LoggerInstance | Console;
+  private name: string;
+  private chunks: Chunks = {};
+  private options: CookieSerializeOptions;
+  private logger: LoggerInstance | Console;
 
   constructor(
     name: string,
@@ -37,9 +37,9 @@ export class SessionStore {
     option: CookieSerializeOptions = {},
     logger: LoggerInstance | Console = defaultLogger,
   ) {
-    this.#name = name;
-    this.#logger = logger;
-    this.#options = option;
+    this.name = name;
+    this.logger = logger;
+    this.options = option;
     if (!cookies) return;
 
     let items = cookies;
@@ -54,8 +54,8 @@ export class SessionStore {
     }
 
     for (const [cookieName, cookieValue] of Object.entries(items)) {
-      if (!cookieName.startsWith(this.#name) || !cookieValue) continue;
-      this.#chunks[cookieName] = cookieValue;
+      if (!cookieName.startsWith(this.name) || !cookieValue) continue;
+      this.chunks[cookieName] = cookieValue;
     }
   }
 
@@ -65,7 +65,7 @@ export class SessionStore {
    */
   get value() {
     // Sort the chunks by their keys before joining
-    const sortedKeys = Object.keys(this.#chunks).sort((a, b) => {
+    const sortedKeys = Object.keys(this.chunks).sort((a, b) => {
       const aSuffix = parseInt(a.split('.').pop() || '0');
       const bSuffix = parseInt(b.split('.').pop() || '0');
 
@@ -73,7 +73,7 @@ export class SessionStore {
     });
 
     // Use the sorted keys to join the chunks in the correct order
-    return sortedKeys.map(key => this.#chunks[key]).join('');
+    return sortedKeys.map(key => this.chunks[key]).join('');
   }
 
   /**
@@ -83,14 +83,14 @@ export class SessionStore {
    */
   chunk(value: string, {chunkSize, ...options}: ChunkOptions): Cookie[] {
     // Assume all cookies should be cleaned by default
-    const cookies: Record<string, Cookie> = this.#clean();
+    const cookies: Record<string, Cookie> = this._clean();
 
     // Calculate new chunks
-    const chunked = this.#chunk(
+    const chunked = this._chunk(
       {
-        name: this.#name,
+        name: this.name,
         value,
-        options: {...this.#options, ...options},
+        options: {...this.options, ...options},
       },
       chunkSize,
     );
@@ -105,16 +105,16 @@ export class SessionStore {
 
   /** Returns a list of cookies that should be cleaned. */
   clean(): Cookie[] {
-    return Object.values(this.#clean());
+    return Object.values(this._clean());
   }
 
   /** Given a cookie, return a list of cookies, chunked to fit the allowed cookie size. */
-  #chunk(cookie: Cookie, chunkSize = CHUNK_SIZE): Cookie[] {
+  private _chunk(cookie: Cookie, chunkSize = CHUNK_SIZE): Cookie[] {
     chunkSize = chunkSize || CHUNK_SIZE;
     const chunkCount = Math.ceil(cookie.value.length / chunkSize);
 
     if (chunkCount === 1) {
-      this.#chunks[cookie.name] = cookie.value;
+      this.chunks[cookie.name] = cookie.value;
       return [cookie];
     }
 
@@ -123,10 +123,10 @@ export class SessionStore {
       const name = `${cookie.name}.${i}`;
       const value = cookie.value.substring(i * chunkSize, (i + 1) * chunkSize);
       cookies.push({...cookie, name, value});
-      this.#chunks[name] = value;
+      this.chunks[name] = value;
     }
 
-    this.#logger.debug('CHUNKING_SESSION_COOKIE', {
+    this.logger.debug('CHUNKING_SESSION_COOKIE', {
       message: `Session cookie exceeds allowed ${ALLOWED_COOKIE_SIZE} bytes.`,
       emptyCookieSize: ESTIMATED_EMPTY_COOKIE_SIZE,
       valueSize: cookie.value.length,
@@ -137,14 +137,14 @@ export class SessionStore {
   }
 
   /** Returns cleaned cookie chunks. */
-  #clean(): Record<string, Cookie> {
+  private _clean(): Record<string, Cookie> {
     const cleanedChunks: Record<string, Cookie> = {};
-    for (const name in this.#chunks) {
-      delete this.#chunks?.[name];
+    for (const name in this.chunks) {
+      delete this.chunks?.[name];
       cleanedChunks[name] = {
         name,
         value: '',
-        options: {...this.#options, maxAge: 0},
+        options: {...this.options, maxAge: 0},
       };
     }
     return cleanedChunks;
