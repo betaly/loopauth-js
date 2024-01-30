@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.7.0](https://github.com/betaly/loopauth-js/compare/@loopauth/client@0.6.0...@loopauth/client@0.7.0) (2024-01-30)
+
+
+### Features
+
+* **crypto:** update getCrypto function and package.json #main ([a3944b7](https://github.com/betaly/loopauth-js/commit/a3944b7f1feb7fcf43b2e0e1f26c90551645c5c4))
+
+
+
+
+
 # [0.6.0](https://github.com/betaly/loopauth-js/compare/@loopauth/client@0.5.1...@loopauth/client@0.6.0) (2024-01-30)
 
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.10](https://github.com/betaly/loopauth-js/compare/@loopauth/react@0.3.9...@loopauth/react@0.3.10) (2024-01-30)
+
+**Note:** Version bump only for package @loopauth/react
+
+
+
+
+
 ## [0.3.9](https://github.com/betaly/loopauth-js/compare/@loopauth/react@0.3.8...@loopauth/react@0.3.9) (2024-01-30)
 
 **Note:** Version bump only for package @loopauth/react
