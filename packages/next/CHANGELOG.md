@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.5.0...@loopauth/next@0.6.0) (2024-01-30)
+
+
+### Features
+
+* **cookie handling:** Update cookie import paths and add chunkSize option ([c5daa31](https://github.com/betaly/loopauth-js/commit/c5daa31421769e33103324896faec81a9d9acdbf))
+
+
+
+
+
 # [0.5.0](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.4.0...@loopauth/next@0.5.0) (2024-01-27)
 
 
