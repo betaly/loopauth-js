@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.7.3](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.7.2...@loopauth/next@0.7.3) (2024-02-02)
+
+**Note:** Version bump only for package @loopauth/next
+
+
+
+
+
 ## [0.7.2](https://github.com/betaly/loopauth-js/compare/@loopauth/next@0.7.1...@loopauth/next@0.7.2) (2024-01-30)
 
 **Note:** Version bump only for package @loopauth/next

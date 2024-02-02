@@ -1,7 +1,7 @@
 {
   "name": "@loopauth/node",
   "description": "",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "keywords": [],
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",

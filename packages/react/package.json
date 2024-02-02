@@ -1,7 +1,7 @@
 {
   "name": "@loopauth/react",
   "description": "The LoopAuth React SDK written in TypeScript",
-  "version": "0.3.10",
+  "version": "0.3.11",
   "keywords": [],
   "type": "module",
   "main": "./dist/index.cjs",

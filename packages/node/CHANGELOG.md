@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.6](https://github.com/betaly/loopauth-js/compare/@loopauth/node@0.2.5...@loopauth/node@0.2.6) (2024-02-02)
+
+**Note:** Version bump only for package @loopauth/node
+
+
+
+
+
 ## [0.2.5](https://github.com/betaly/loopauth-js/compare/@loopauth/node@0.2.4...@loopauth/node@0.2.5) (2024-01-30)
 
 **Note:** Version bump only for package @loopauth/node
